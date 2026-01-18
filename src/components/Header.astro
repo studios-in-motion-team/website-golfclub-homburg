@@ -44,7 +44,7 @@ const navLinks = [
     </div>
 
     <!-- Mobile Menu Toggle -->
-    <button id="mobile-menu-btn" aria-label="Menü öffnen/schließen" class="lg:hidden">
+    <button id="mobile-menu-btn" aria-label="Menü öffnen/schließen" class="lg:hidden p-3 -mr-3">
       <svg id="menu-icon" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
@@ -57,7 +57,7 @@ const navLinks = [
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="lg:hidden hidden absolute top-full left-0 w-full bg-white shadow-lg py-6 px-4 flex flex-col space-y-4">
     {navLinks.map((link) => (
-      <a href={link.href} class="text-gray-800 font-semibold uppercase tracking-wider text-center block hover:text-golf-gold">
+      <a href={link.href} class="text-gray-800 font-semibold uppercase tracking-wider text-center block hover:text-golf-gold py-3">
         {link.name}
       </a>
     ))}

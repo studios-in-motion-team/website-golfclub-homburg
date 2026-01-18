@@ -26,7 +26,7 @@ const { sidebarTitle, sidebarItems, currentPath } = Astro.props;
             {sidebarItems.map((item) => (
               <a
                 href={item.href}
-                class={`block px-3 py-2 rounded text-sm transition-colors duration-200 ${
+                class={`block px-4 py-3 rounded text-sm transition-colors duration-200 ${
                   currentPath === item.href
                     ? 'bg-golf-green text-white font-medium'
                     : 'text-gray-700 hover:bg-golf-gold/10 hover:text-golf-green'

@@ -24,12 +24,12 @@ const { items, activeLabel, parentTitle } = Astro.props;
   )}
 
   <div class="container mx-auto px-4 overflow-x-auto scroller-hide relative z-10">
-    <ul class="flex items-center justify-center space-x-8 md:space-x-12 py-4 whitespace-nowrap min-w-max mx-auto">
+    <ul class="flex items-center justify-center space-x-8 md:space-x-12 whitespace-nowrap min-w-max mx-auto">
       {items.map((item) => (
         <li>
           <a
             href={item.href}
-            class={`text-sm font-bold uppercase tracking-widest transition-all duration-300 relative py-2 block
+            class={`text-sm font-bold uppercase tracking-widest transition-all duration-300 relative py-5 block
               ${activeLabel === item.label
                 ? 'text-golf-green'
                 : 'text-white hover:text-golf-green opacity-90 hover:opacity-100'
