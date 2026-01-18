@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Kontakt - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <div class="bg-gray-100 text-gray-800 py-20 px-4">
+      <div class="container mx-auto max-w-4xl text-center">
+        <h1 class="font-serif text-5xl font-bold text-golf-green mb-6">Kontakt</h1>
+        <p class="text-xl font-light tracking-wide text-gray-600">
+          Wir freuen uns auf Ihren Besuch
+        </p>
+      </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-16 max-w-4xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-golf-green mb-6">Anschrift</h2>
+          <address class="not-italic text-gray-700 space-y-2">
+            <p class="font-bold">Hofgut Websweiler Golf-Resort GmbH</p>
+            <p>Websweiler Hof</p>
+            <p>66424 Homburg/Saar</p>
+          </address>
+
+          <h2 class="font-serif text-2xl font-bold text-golf-green mt-8 mb-6">Kommunikation</h2>
+          <div class="space-y-2 text-gray-700">
+            <p>Telefon: <a href="tel:06841777760" class="hover:text-golf-gold transition-colors">06841 77 776-0</a></p>
+            <p>Fax: 06841 77 776-66</p>
+            <p>E-Mail: <a href="mailto:info@golfsaar.de" class="hover:text-golf-gold transition-colors">info@golfsaar.de</a></p>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="font-serif text-2xl font-bold text-golf-green mb-6">Schreiben Sie uns</h2>
+          <form class="space-y-4">
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">Name</label>
+              <input type="text" class="w-full border border-gray-300 p-2 focus:border-golf-green outline-none" placeholder="Ihr Name" />
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">E-Mail</label>
+              <input type="email" class="w-full border border-gray-300 p-2 focus:border-golf-green outline-none" placeholder="Ihre E-Mail-Adresse" />
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">Nachricht</label>
+              <textarea class="w-full border border-gray-300 p-2 h-32 focus:border-golf-green outline-none" placeholder="Wie können wir Ihnen helfen?"></textarea>
+            </div>
+            <button type="submit" class="bg-golf-green text-white px-6 py-2 uppercase font-bold tracking-wider hover:bg-opacity-90 transition-colors">
+              Absenden
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>

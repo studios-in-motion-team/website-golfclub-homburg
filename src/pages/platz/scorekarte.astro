@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import SubNavigation from '../../components/SubNavigation.astro';
+
+const platzNavItems = [
+  { label: 'E-Scoring', href: '/platz/e-scoring' },
+  { label: 'Startzeiten buchen', href: '/platz/startzeiten' },
+  { label: 'Platzübersicht', href: '/platz' },
+  { label: 'Persönliche Scorekarte', href: '/platz/scorekarte' },
+  { label: 'Spielbahnen', href: '/platz/spielbahnen' },
+  { label: 'Übungsbereich', href: '/platz/uebungsbereich' },
+];
+---
+
+<BaseLayout title="Scorekarte - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="Persönliche Scorekarte"
+      subtitle="Ihre Scorekarte für den 18-Loch Platz"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={platzNavItems}
+      activeLabel="Persönliche Scorekarte"
+      parentTitle="GOLFPLATZ"
+    />
+
+    <div class="container mx-auto px-4 py-16 max-w-4xl text-center">
+      <h2 class="font-serif text-3xl font-bold text-golf-green mb-6">Scorekarte</h2>
+      <p class="text-lg text-gray-700 mb-8">
+        Die offizielle Scorekarte unseres 18-Loch Meisterschaftsplatzes.
+      </p>
+      
+      <div class="bg-white p-4 shadow-xl rounded-lg">
+        <img
+          src="/images/scorecard.webp"
+          alt="Scorekarte Golfclub Homburg"
+          class="w-full h-auto"
+        />
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>

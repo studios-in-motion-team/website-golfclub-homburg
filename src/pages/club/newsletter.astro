@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import SubNavigation from '../../components/SubNavigation.astro';
+
+const clubNavItems = [
+  { label: 'Über uns', href: '/club' },
+  { label: 'Die Menschen', href: '/club/menschen' },
+  { label: 'Gastronomie', href: '/gastronomie' },
+  { label: 'Mitgliedschaft/Tarife', href: '/mitgliedschaft' },
+  { label: 'Partner', href: '/club/partner' },
+  { label: 'Newsletter', href: '/club/newsletter' },
+];
+---
+
+<BaseLayout title="Newsletter - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="Newsletter"
+      subtitle="Immer auf dem Laufenden bleiben"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={clubNavItems}
+      activeLabel="Newsletter"
+      parentTitle="DER CLUB"
+    />
+
+    <div class="container mx-auto px-4 py-16 max-w-4xl">
+      <div class="prose prose-lg mx-auto text-gray-700 text-center">
+        <h2 class="font-serif text-3xl font-bold text-golf-green mb-8">Newsletter vom Websweiler Hof</h2>
+
+        <p class="text-xl mb-8 leading-relaxed">
+          Wenn Sie sich für alle Neuigkeiten und Informationen über den Websweiler Hof interessieren,
+          können Sie sich hier für unseren Newsletter anmelden. Dieser erscheint 4- bis 6-mal jährlich.
+        </p>
+
+        <div class="bg-gray-50 p-10 rounded-lg shadow-sm border border-gray-100 mb-10">
+          <p class="mb-6 font-medium">
+            Bitte senden Sie uns zur Anmeldung eine E-Mail mit dem Stichwort <span class="text-golf-green font-bold">"Anmeldung Newsletter"</span>.
+          </p>
+
+          <a
+            href="mailto:info@golfsaar.de?subject=Anmeldung Newsletter"
+            class="inline-block bg-golf-green text-white px-8 py-3 font-bold uppercase tracking-widest hover:bg-golf-gold transition-colors rounded shadow-lg"
+          >
+            Jetzt anmelden
+          </a>
+
+          <p class="mt-4 text-sm text-gray-500">
+            E-Mail an: info@golfsaar.de
+          </p>
+        </div>
+
+        <p class="text-sm text-gray-500 italic">
+          Sie können sich natürlich auch jederzeit wieder per E-Mail von unserem Newsletterversand abmelden.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>

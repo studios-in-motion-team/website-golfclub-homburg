@@ -1,0 +1,41 @@
+---
+interface Props {
+  activeLabel?: string;
+}
+
+const { activeLabel } = Astro.props;
+
+const sportNavItems = [
+  { label: 'Abteilungen', href: '/sport' },
+  { label: 'Ladies Day', href: '/sport/ladies-day' },
+  { label: 'Mens Day', href: '/sport/mens-day' },
+  { label: 'Seniorentag', href: '/sport/seniorentag' },
+  { label: 'Mannschaften', href: '/sport/mannschaften' },
+  { label: 'Jugend', href: '/sport/jugend' },
+  { label: 'Turniere', href: '/sport/turniere' },
+];
+---
+
+<aside class="w-full lg:w-64 lg:flex-shrink-0">
+  <nav class="bg-white shadow-lg rounded-lg overflow-hidden lg:sticky lg:top-24">
+    <div class="bg-golf-green text-white px-6 py-4">
+      <h3 class="font-serif text-lg font-bold uppercase tracking-wider">Sport</h3>
+    </div>
+    <ul class="divide-y divide-gray-100">
+      {sportNavItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class={`block px-6 py-4 text-sm font-medium transition-all duration-200 border-l-4
+              ${activeLabel === item.label
+                ? 'bg-golf-gold/10 text-golf-green border-golf-gold font-bold'
+                : 'text-gray-700 border-transparent hover:bg-gray-50 hover:border-golf-green hover:text-golf-green'
+              }`}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</aside>

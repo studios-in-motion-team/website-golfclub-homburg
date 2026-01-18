@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import SubNavigation from '../components/SubNavigation.astro';
+
+const clubNavItems = [
+  { label: 'Über uns', href: '/club' },
+  { label: 'Die Menschen', href: '/club/menschen' },
+  { label: 'Gastronomie', href: '/gastronomie' },
+  { label: 'Mitgliedschaft/Tarife', href: '/mitgliedschaft' },
+  { label: 'Partner', href: '/club/partner' },
+  { label: 'Newsletter', href: '/club/newsletter' },
+];
+---
+
+<BaseLayout title="Gastronomie - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="Gastronomie"
+      subtitle="Kulinarische Highlights im historischen Ambiente"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={clubNavItems}
+      activeLabel="Gastronomie"
+      parentTitle="DER CLUB"
+    />
+
+    <div class="container mx-auto px-4 py-16 max-w-6xl">
+      <!-- Introduction Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
+        <div>
+          <h2 class="font-serif text-4xl font-bold text-golf-green mb-6">Herzlich Willkommen am Websweiler Hof</h2>
+          <p class="mb-6 leading-relaxed text-lg">
+            Seit Januar 2006 begrüßt Sie <strong>Melinda Bodnar und Ihr Team</strong> in den Räumen des Websweiler Hofs.
+            Erleben Sie ein traumhaftes Ambiente und lassen Sie sich von den kulinarischen Köstlichkeiten verführen.
+          </p>
+          <p class="mb-8 leading-relaxed">
+            Ob nach einer erfolgreichen Golfrunde oder als Ziel für Ihren Ausflug – unser Restaurant bietet den perfekten Rahmen für genussvolle Stunden.
+          </p>
+          <p class="mb-6 leading-relaxed">
+            Genießen Sie den Blick von unserer Terrasse auf die Spielbahnen oder entspannen Sie im gemütlichen Kaminzimmer. Für private Feiern und geschäftliche Anlässe bieten wir den perfekten Rahmen.
+          </p>
+          <a
+            href="https://www.restaurant-websweilerhof.de/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block bg-golf-gold text-white px-8 py-3 font-bold uppercase tracking-wider hover:bg-opacity-90 transition-all shadow-md"
+          >
+            Zur Restaurant Website
+          </a>
+        </div>
+        <div class="relative group">
+          <div class="aspect-[4/3] bg-gray-200 rounded-lg overflow-hidden shadow-2xl relative z-10">
+            <img
+              src="/images/gastro.webp"
+              alt="Restaurant Ambiente"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+          <div class="absolute -bottom-6 -right-6 w-full h-full bg-golf-green/10 rounded-lg -z-0"></div>
+        </div>
+      </div>
+
+      <!-- Celebrations Section -->
+      <div class="bg-golf-light -mx-4 px-4 py-20 mb-24">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="font-serif text-3xl md:text-4xl font-bold text-golf-green mb-8">
+            Unvergessliche Feiern am Websweiler Hof
+          </h2>
+          <p class="text-lg text-gray-700 leading-relaxed mb-10">
+            Ob Hochzeit, Geburtstag oder Firmenevent – wir bieten den idealen Rahmen für Ihre Feierlichkeit. Unsere Räumlichkeiten und die weitläufige Terrasse bieten Platz für bis zu 120 Personen.
+          </p>
+          <div class="grid md:grid-cols-2 gap-8 text-left">
+            <div class="bg-white p-8 shadow-sm border-t-4 border-golf-gold">
+              <h3 class="font-bold text-xl mb-4 text-golf-green">Kulinarischer Rahmen</h3>
+              <p class="text-gray-600">
+                Unsere abwechslungsreiche internationale Küche bietet den idealen kulinarischen Rahmen für Ihre Feier.
+                Vom Empfang im herrlichen Innenhof über köstliche Buffets bis hin zu festlich servierten Dinnern.
+              </p>
+            </div>
+            <div class="bg-white p-8 shadow-sm border-t-4 border-golf-green">
+              <h3 class="font-bold text-xl mb-4 text-golf-green">Persönliche Note</h3>
+              <p class="text-gray-600">
+                Gerne gehen wir auf Ihre besonderen Wünsche ein. Wir wissen, wie wir Ihrem schönsten Tag eine persönliche Note geben und damit für Sie und Ihre Gäste unvergesslich machen.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info Grid -->
+      <div class="grid md:grid-cols-3 gap-12 text-center">
+        <div>
+          <div class="w-16 h-16 bg-white shadow-md rounded-full flex items-center justify-center mx-auto mb-6 text-golf-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+          </div>
+          <h4 class="font-bold uppercase tracking-widest text-sm mb-4">Kontakt</h4>
+          <p class="text-gray-600">Telefon 06841 77 776-0</p>
+          <p class="text-gray-600">Fax 06841 77 776-66</p>
+          <p class="text-gray-600">info@golfsaar.de</p>
+        </div>
+        <div>
+          <div class="w-16 h-16 bg-white shadow-md rounded-full flex items-center justify-center mx-auto mb-6 text-golf-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h4 class="font-bold uppercase tracking-widest text-sm mb-4">Öffnungszeiten</h4>
+          <p class="text-gray-600 italic">Bitte informieren Sie sich auf der</p>
+          <p class="text-gray-600 italic underline">Restaurant Website über</p>
+          <p class="text-gray-600 italic">die aktuellen Zeiten.</p>
+        </div>
+        <div>
+          <div class="w-16 h-16 bg-white shadow-md rounded-full flex items-center justify-center mx-auto mb-6 text-golf-gold">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h4 class="font-bold uppercase tracking-widest text-sm mb-4">Anfahrt</h4>
+          <p class="text-gray-600">Websweiler Hof</p>
+          <p class="text-gray-600">D-66424 Homburg/Saar</p>
+          <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer" class="text-golf-gold hover:underline font-bold text-xs uppercase tracking-tighter mt-2 inline-block">Route planen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>

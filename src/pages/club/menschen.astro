@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import SubNavigation from '../../components/SubNavigation.astro';
+
+const clubNavItems = [
+  { label: 'Über uns', href: '/club' },
+  { label: 'Die Menschen', href: '/club/menschen' },
+  { label: 'Gastronomie', href: '/gastronomie' },
+  { label: 'Mitgliedschaft/Tarife', href: '/mitgliedschaft' },
+  { label: 'Partner', href: '/club/partner' },
+  { label: 'Newsletter', href: '/club/newsletter' },
+];
+
+const praesidium = [
+  { name: 'Dr. Richard Weber', role: 'Präsident', image: '/images/menschen/richard-weber.jpg' },
+  { name: 'Ernst Ludwig', role: 'Vizepräsident', image: '/images/menschen/ernst-ludwig.jpg' },
+  { name: 'Dr. Hans Müller', role: 'Schatzmeister', image: '/images/menschen/hans-mueller.jpg' },
+  { name: 'Carmen Becker', role: 'Beisitzer', image: '/images/menschen/carmen-becker.jpg' },
+  { name: 'Steffen Oetzel', role: 'Spielführer', image: '/images/menschen/steffen-oetzel.jpg' },
+  { name: 'Yamina Blume', role: 'Jugendwart', image: '/images/menschen/silhouette-frau.jpg' },
+  { name: 'Martin Germann', role: 'Schriftführer', image: '/images/menschen/silhouette-mann.jpg' },
+];
+---
+
+<BaseLayout title="Die Menschen - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="Die Menschen"
+      subtitle="Das Team hinter dem Golfclub am Websweiler Hof"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={clubNavItems}
+      activeLabel="Die Menschen"
+      parentTitle="DER CLUB"
+    />
+
+    <div class="container mx-auto px-4 py-16 max-w-6xl">
+      <!-- Intro Text -->
+      <div class="max-w-3xl mx-auto text-center mb-20">
+        <h2 class="font-serif text-3xl md:text-4xl font-bold text-golf-green mb-8">Gemeinsam für Ihre Freude am Spiel</h2>
+        <div class="text-xl text-gray-700 leading-relaxed italic">
+          <p class="mb-4">
+            "Dass es in einem Golfclub ums Golf spielen geht, muss eigentlich nicht extra betont werden."
+          </p>
+          <p>
+            "Dass es bei uns um die Menschen geht, die diesen Sport unbeschwert genießen möchten, halten wir schon für erwähnenswert."
+          </p>
+        </div>
+      </div>
+
+      <!-- Präsidium Section -->
+      <div>
+        <div class="flex items-center space-x-4 mb-12">
+          <div class="h-px bg-golf-gold flex-grow"></div>
+          <h3 class="font-serif text-3xl font-bold text-golf-green uppercase tracking-wider">Präsidium</h3>
+          <div class="h-px bg-golf-gold flex-grow"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {praesidium.map((item) => (
+            <div class="bg-white rounded-lg shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300 border-b-4 border-transparent hover:border-golf-gold">
+              <div class="p-8 text-center">
+                <div class="w-24 h-24 rounded-full mx-auto mb-6 overflow-hidden border-4 border-golf-green/20 group-hover:border-golf-gold transition-colors duration-500">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <h4 class="font-bold text-xl text-gray-800 mb-2">{item.name}</h4>
+                <p class="text-sm uppercase tracking-[0.2em] text-golf-gold font-semibold">{item.role}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Contact Placeholder -->
+      <div class="mt-24 bg-golf-green text-white p-12 rounded-lg relative overflow-hidden text-center">
+        <div class="absolute top-0 right-0 p-8 opacity-10">
+          <svg class="w-48 h-48" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+          </svg>
+        </div>
+        <div class="relative z-10">
+          <h3 class="font-serif text-3xl font-bold mb-6">Sie haben ein Anliegen?</h3>
+          <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">Unser Sekretariat und die Vorstandsmitglieder haben stets ein offenes Ohr für Ihre Wünsche und Anregungen.</p>
+          <a href="/kontakt" class="inline-block bg-white text-golf-green px-10 py-4 font-bold uppercase tracking-widest hover:bg-golf-gold hover:text-white transition-all shadow-lg">
+            Kontakt Aufnehmen
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>

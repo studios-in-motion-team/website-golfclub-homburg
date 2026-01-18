@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNavigation from '../../../components/SubNavigation.astro';
+import SidebarLayout from '../../../components/SidebarLayout.astro';
+
+const sportNavItems = [
+  { label: 'Abteilungen', href: '/sport' },
+  { label: 'Mannschaften', href: '/sport/mannschaften' },
+  { label: 'Jugend', href: '/sport/jugend' },
+  { label: 'Turniere', href: '/sport/turniere' },
+];
+
+const sidebarItems = [
+  { label: 'Übersicht', href: '/sport/turniere' },
+  { label: 'Turnieranmeldung', href: '/sport/turniere/turnieranmeldung' },
+  { label: 'Startlisten', href: '/sport/turniere/startlisten' },
+  { label: 'Ergebnisse', href: '/sport/turniere/ergebnisse' },
+];
+---
+
+<BaseLayout title="Turniere - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="Turniere"
+      subtitle="Wettkämpfe und Clubturniere am Websweiler Hof"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={sportNavItems}
+      activeLabel="Turniere"
+      parentTitle="SPORT"
+    />
+
+    <SidebarLayout sidebarTitle="TURNIERE" sidebarItems={sidebarItems} currentPath="/sport/turniere">
+      <h2 class="font-serif text-3xl font-bold text-golf-green mb-6">Turniere</h2>
+      
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <p class="mb-6">
+          Jedes Jahr finden zahlreiche Turniere in unserem Club statt. Dabei unterscheiden wir 
+          zwischen <strong>offenen Turnieren</strong> (jeder Golfer eines deutschen und meist auch 
+          jeden ausländischen Golfclubs kann teilnehmen) und <strong>clubinternen Turnieren</strong>.
+        </p>
+
+        <p class="mb-6">
+          Eine Sonderform der clubinternen Turniere sind die Abteilungsturniere der Damen, 
+          Herren, Senioren und der Jugend.
+        </p>
+
+        <div class="bg-golf-gold/10 border-l-4 border-golf-gold p-6 rounded-r-lg mb-8">
+          <h3 class="font-bold text-lg text-golf-green mb-2">Vorgabewirksame Turniere</h3>
+          <p class="text-gray-600 mb-0">
+            Bei allen Turnieren wird unterschieden zwischen vorgabewirksamen und nicht vorgabewirksamen 
+            Wettspielen. Bei den letztgenannten Turnieren wirkt sich das von Ihnen gespielte Ergebnis 
+            nicht auf Ihr Handicap aus.
+          </p>
+        </div>
+
+        <h3 class="font-serif text-xl font-bold text-golf-green mt-8 mb-4">Turnierkalender</h3>
+        <p class="mb-6">
+          Die Turniere werden im Turnierkalender auf den Webseiten des Clubs und im Clubhaus 
+          durch Aushänge veröffentlicht. Sobald ein Turnier zur Anmeldung freigegeben ist, 
+          finden Sie im Clubhaus einen Aushang mit der Turnierausschreibung.
+        </p>
+
+        <p class="mb-6">
+          Die Anmeldung zum Turnier können Sie hier im Internet vornehmen. Der Aushang der 
+          Turniere erfolgt in der Regel ca. drei Wochen vor Turnierbeginn.
+        </p>
+      </div>
+
+      <!-- Quick Links zu Unterseiten -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+        <a href="/sport/turniere/turnieranmeldung" class="group bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-golf-green transition-all duration-300">
+          <div class="w-12 h-12 bg-golf-green/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-golf-green transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-golf-green group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-golf-green mb-2 group-hover:text-golf-gold transition-colors">Turnieranmeldung</h3>
+          <p class="text-gray-600 text-sm">Online-Anmeldung zu unseren Turnieren</p>
+        </a>
+
+        <a href="/sport/turniere/startlisten" class="group bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-golf-green transition-all duration-300">
+          <div class="w-12 h-12 bg-golf-green/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-golf-green transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-golf-green group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-golf-green mb-2 group-hover:text-golf-gold transition-colors">Startlisten</h3>
+          <p class="text-gray-600 text-sm">Aktuelle Startzeiten und Flights</p>
+        </a>
+
+        <a href="/sport/turniere/ergebnisse" class="group bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-golf-green transition-all duration-300">
+          <div class="w-12 h-12 bg-golf-green/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-golf-green transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-golf-green group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-golf-green mb-2 group-hover:text-golf-gold transition-colors">Ergebnisse</h3>
+          <p class="text-gray-600 text-sm">Ergebnisse vergangener Turniere</p>
+        </a>
+      </div>
+    </SidebarLayout>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>

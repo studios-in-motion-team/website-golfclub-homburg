@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import SubNavigation from '../../components/SubNavigation.astro';
+
+const sportNavItems = [
+  { label: 'Abteilungen', href: '/sport' },
+  { label: 'Mannschaften', href: '/sport/mannschaften' },
+  { label: 'Jugend', href: '/sport/jugend' },
+  { label: 'Turniere', href: '/sport/turniere' },
+];
+---
+
+<BaseLayout title="Jugend - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="Jugend"
+      subtitle="Nachwuchsförderung am Websweiler Hof"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={sportNavItems}
+      activeLabel="Jugend"
+      parentTitle="SPORT"
+    />
+
+    <div class="container mx-auto px-4 py-12 max-w-5xl">
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <h2 class="font-serif text-3xl font-bold text-golf-green mb-6">Jugendarbeit am Websweiler Hof</h2>
+        
+        <!-- Bildergalerie -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div class="rounded-lg overflow-hidden shadow-md">
+            <img 
+              src="/images/jugend-1.jpg" 
+              alt="Jugendtraining am Websweiler Hof" 
+              class="w-full h-56 object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div class="rounded-lg overflow-hidden shadow-md">
+            <img 
+              src="/images/jugend-2.jpg" 
+              alt="Golfjugend beim Training" 
+              class="w-full h-56 object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div class="rounded-lg overflow-hidden shadow-md">
+            <img 
+              src="/images/jugend-3.jpg" 
+              alt="Jugendgruppe Golfclub Homburg" 
+              class="w-full h-56 object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+        </div>
+
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Auf unsere Jugendarbeit sind wir seit Jahren zu Recht stolz. Top motivierte Kinder und 
+            Jugendliche besuchen jeden Freitag das wöchentliche Training unter der Leitung unseres 
+            Trainers <strong>Uwe Dillinger</strong>, unterstützt von <strong>Jil Heinz-Schwitzgebel</strong>.
+          </p>
+
+          <p class="mb-6">
+            Die Kinder sind in zwei Trainingsgruppen eingeteilt. Aktuell bewährt sich ein Team für 
+            die Mädels und eines für die Jungs. Bei Sondertrainingseinheiten und im Wintertraining 
+            trainieren die Gruppen gemeinsam. Hier möchten wir nicht nur dem Leistungssport gerecht 
+            werden, sondern auch der Spaß am Sport darf nicht zu kurz kommen. Hierbei wird jedes 
+            einzelne Kind in seiner individuellen Entwicklung gefördert.
+          </p>
+
+          <div class="bg-golf-gold/10 border-l-4 border-golf-gold p-6 rounded-r-lg mb-8">
+            <h3 class="font-bold text-lg text-golf-green mb-2">Training</h3>
+            <p class="text-gray-600 mb-0">
+              <strong>Jeden Freitag</strong> – wöchentliches Training für alle Altersgruppen
+            </p>
+          </div>
+
+          <h3 class="font-serif text-xl font-bold text-golf-green mt-8 mb-4">Erfolge</h3>
+          <p class="mb-6">
+            In den letzten Jahren war unsere Jugend sehr erfolgreich und konnte sich immer die 
+            besten Plätze auf den Jugendturnieren in der Region sichern. Golf ist zwar eine 
+            Individualsportart, aber die Kids verstehen sich als Team und treten bei Turnieren 
+            auch als Gemeinschaft auf. Was die Jungs und Mädels in jungen Jahren bereits lernen, 
+            können sich die wenigsten Erwachsenen mit dieser Leichtigkeit aneignen.
+          </p>
+
+          <h3 class="font-serif text-xl font-bold text-golf-green mt-8 mb-4">Golf für die ganze Familie</h3>
+          <p class="mb-6">
+            Über den Nachwuchs haben in den vergangenen Jahren viele Familien den Weg zum 
+            Golfclub Homburg/Saar Websweiler Hof e.V. gefunden, denn die Besonderheit dieses 
+            Sportes besteht darin, ihn unabhängig von Alter und Spielstärke gemeinsam ausüben 
+            zu können.
+          </p>
+
+          <div class="bg-golf-green/5 border-l-4 border-golf-green p-6 rounded-r-lg mb-8">
+            <h3 class="font-bold text-lg text-golf-green mb-2">Mitgliedschaften für Kinder</h3>
+            <p class="text-gray-600 mb-4">
+              Alle Kinder und Jugendliche, die am Kinder- und Jugendtraining teilnehmen, sind 
+              automatisch auch Mitglieder im GC Homburg. Das heißt, sobald Ihr Euer Golfabzeichen 
+              gemacht und hcp 54 habt, erhaltet Ihr von uns einen DGV Clubausweis.
+            </p>
+            <p class="text-gray-600 mb-0">
+              Dieser Ausweis berechtigt Euch dazu, auf anderen Golfplätzen zu spielen.
+            </p>
+          </div>
+
+          <h3 class="font-serif text-xl font-bold text-golf-green mt-8 mb-4">Schnuppern & Anmeldung</h3>
+          <p class="mb-4">
+            Natürlich können alle Kinder, die uns noch nicht kennen, gerne zum <strong>kostenlosen 
+            Schnuppern</strong> in die Trainingsstunden kommen.
+          </p>
+          <p class="mb-6">
+            Bitte melden Sie ihr Kind hierfür im Sekretariat oder bei der Jugendwartin an:
+          </p>
+
+          <div class="bg-golf-gold/10 rounded-lg p-6 mb-8">
+            <p class="font-bold text-golf-green mb-2">Yamina Blume</p>
+            <p class="text-gray-600">Jugendwartin</p>
+            <p class="text-gray-600">
+              <a href="tel:+4916326153710" class="text-golf-green hover:text-golf-gold transition-colors">
+                Tel. 0163-2615371
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 mt-8">
+          <a
+            href="/mitgliedschaft"
+            class="inline-block bg-golf-green text-white text-center font-bold py-3 px-8 rounded hover:bg-opacity-90 transition-colors duration-200 uppercase tracking-widest text-sm shadow-md"
+          >
+            Mitgliedschaft
+          </a>
+          <a
+            href="/kontakt"
+            class="inline-block bg-white text-golf-green text-center font-bold py-3 px-8 rounded border-2 border-golf-green hover:bg-golf-green hover:text-white transition-colors duration-200 uppercase tracking-widest text-sm"
+          >
+            Kontakt
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>

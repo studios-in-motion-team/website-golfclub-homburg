@@ -1,0 +1,106 @@
+---
+const images = [
+  "/images/sample/creation_2228721393.png",
+  "/images/sample/creation_2228721406.png",
+  "/images/sample/creation_2228721419.jpg",
+  "/images/sample/creation_2228721425.png",
+];
+---
+
+<section class="relative w-full h-[500px] md:h-[600px] bg-gray-900 group overflow-hidden">
+  <!-- Gallery Images -->
+  {images.map((image, idx) => (
+    <div
+      class="gallery-slide absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-700 ease-in-out"
+      style={`background-image: url(${image}); opacity: ${idx === 0 ? 1 : 0};`}
+      data-index={idx}
+    >
+      <div class="absolute inset-0 bg-black/20"></div>
+    </div>
+  ))}
+
+  <!-- Center Label -->
+  <div class="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
+    <div class="bg-white/90 backdrop-blur-sm p-6 md:p-10 text-center shadow-2xl max-w-lg mx-4">
+      <svg class="w-8 h-8 text-golf-gold mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+      </svg>
+      <h2 class="text-3xl font-serif text-golf-green mb-2">Unsere Anlage</h2>
+      <p class="text-gray-600 mb-6 italic">Einblicke in 70 Hektar Natur</p>
+      <button class="pointer-events-auto px-6 py-2 border border-golf-green text-golf-green text-sm font-bold uppercase tracking-widest hover:bg-golf-green hover:text-white transition-colors">
+        Zur Galerie
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <button
+    id="gallery-prev"
+    class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 z-20"
+  >
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+    </svg>
+  </button>
+  <button
+    id="gallery-next"
+    class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 z-20"
+  >
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+    </svg>
+  </button>
+
+  <!-- Dots -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-20">
+    {images.map((_, idx) => (
+      <button
+        class={`gallery-dot w-3 h-3 rounded-full transition-all ${idx === 0 ? 'bg-golf-gold w-6' : 'bg-white/50 hover:bg-white'}`}
+        data-index={idx}
+      />
+    ))}
+  </div>
+</section>
+
+<script>
+  const slides = document.querySelectorAll('.gallery-slide');
+  const dots = document.querySelectorAll('.gallery-dot');
+  const prevBtn = document.getElementById('gallery-prev');
+  const nextBtn = document.getElementById('gallery-next');
+  let currentIndex = 0;
+  const totalSlides = slides.length;
+
+  function showSlide(index: number) {
+    slides.forEach((slide, idx) => {
+      (slide as HTMLElement).style.opacity = idx === index ? '1' : '0';
+    });
+    dots.forEach((dot, idx) => {
+      if (idx === index) {
+        dot.classList.add('bg-golf-gold', 'w-6');
+        dot.classList.remove('bg-white/50');
+      } else {
+        dot.classList.remove('bg-golf-gold', 'w-6');
+        dot.classList.add('bg-white/50');
+      }
+    });
+    currentIndex = index;
+  }
+
+  prevBtn?.addEventListener('click', () => {
+    const newIndex = currentIndex === 0 ? totalSlides - 1 : currentIndex - 1;
+    showSlide(newIndex);
+  });
+
+  nextBtn?.addEventListener('click', () => {
+    const newIndex = currentIndex === totalSlides - 1 ? 0 : currentIndex + 1;
+    showSlide(newIndex);
+  });
+
+  dots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      const index = parseInt((dot as HTMLElement).dataset.index || '0');
+      showSlide(index);
+    });
+  });
+</script>

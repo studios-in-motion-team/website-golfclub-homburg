@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import SubNavigation from '../../components/SubNavigation.astro';
+import MannschaftenSidebar from '../../components/MannschaftenSidebar.astro';
+
+const sportNavItems = [
+  { label: 'Abteilungen', href: '/sport' },
+  { label: 'Mannschaften', href: '/sport/mannschaften' },
+  { label: 'Jugend', href: '/sport/jugend' },
+  { label: 'Turniere', href: '/sport/turniere' },
+];
+
+const mannschaften = [
+  { name: 'Clubmannschaft Herren', liga: 'DGL', href: '/sport/mannschaften/clubmannschaft-herren' },
+  { name: 'AK 30 Herren', liga: 'Liga 1', href: '/sport/mannschaften/ak-30-herren' },
+  { name: 'AK 30 Herren II', liga: 'Liga 2', href: '/sport/mannschaften/ak-30-herren-ii' },
+  { name: 'AK 30 Damen', liga: 'Liga', href: '/sport/mannschaften/ak-30-damen' },
+  { name: 'AK 50 Herren', liga: 'Liga', href: '/sport/mannschaften/ak-50-herren' },
+  { name: 'AK 65 Damen', liga: 'Liga', href: '/sport/mannschaften/ak-65-damen' },
+  { name: 'AK 65 Herren', liga: 'Liga', href: '/sport/mannschaften/ak-65-herren' },
+];
+---
+
+<BaseLayout title="Mannschaften - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="Mannschaften"
+      subtitle="Unsere Teams in den DGV-Ligen"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={sportNavItems}
+      activeLabel="Mannschaften"
+      parentTitle="SPORT"
+    />
+
+    <div class="container mx-auto px-4 py-12 max-w-6xl">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <MannschaftenSidebar activeLabel="Übersicht" />
+        
+        <main class="flex-1">
+          <div class="bg-white rounded-lg shadow-lg p-8">
+            <h2 class="font-serif text-3xl font-bold text-golf-green mb-6">Unsere Mannschaften</h2>
+            
+            <div class="prose prose-lg max-w-none text-gray-700 mb-8">
+              <p>
+                Insgesamt sieben Mannschaften stehen für ein sportliches, aktives Golfspiel am Websweiler Hof 2026.
+                Dabei führen die jeweiligen Captains ihre Mannschaften selbständig. Sollten Sie Fragen zu einem 
+                Team haben, so wenden Sie sich bitte an den Captain.
+              </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+              {mannschaften.map((team) => (
+                <a 
+                  href={team.href}
+                  class="group flex items-center justify-between p-4 bg-gradient-to-r from-golf-green/5 to-white rounded-lg border-l-4 border-golf-green hover:shadow-lg hover:border-golf-gold transition-all"
+                >
+                  <div>
+                    <h3 class="font-bold text-golf-green group-hover:text-golf-gold transition-colors">{team.name}</h3>
+                    <span class="text-sm text-gray-500">{team.liga}</span>
+                  </div>
+                  <span class="text-golf-gold opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                </a>
+              ))}
+            </div>
+
+            <div class="mt-8 p-6 bg-golf-gold/10 rounded-lg border-l-4 border-golf-gold">
+              <h3 class="font-bold text-lg text-golf-green mb-2">Interesse am Mannschaftssport?</h3>
+              <p class="text-gray-600 mb-4">
+                Sie möchten Teil eines unserer Teams werden? Sprechen Sie uns an oder kontaktieren Sie 
+                direkt den jeweiligen Mannschaftscaptain.
+              </p>
+              <a
+                href="/kontakt"
+                class="inline-block bg-golf-green text-white font-bold py-2 px-6 rounded hover:bg-opacity-90 transition-colors duration-200 uppercase tracking-widest text-sm"
+              >
+                Kontakt aufnehmen
+              </a>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>

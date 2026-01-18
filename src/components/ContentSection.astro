@@ -1,0 +1,95 @@
+---
+const images = [
+  '/images/hometeaser_1.webp',
+  '/images/hometeaser_2.webp',
+  '/images/hometeaser_3.webp'
+];
+---
+
+<section class="container mx-auto px-4 md:px-8 space-y-24 mb-24">
+  <!-- Intro Section -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <div class="relative">
+      <div class="absolute top-4 -left-4 w-full h-full border-2 border-golf-gold z-0 hidden md:block"></div>
+      <img
+        src="/images/homburg_clubhaus.webp"
+        alt="Clubhaus Impression"
+        class="w-full h-auto object-cover relative z-10 shadow-lg"
+      />
+    </div>
+    <div>
+      <span class="text-golf-gold font-bold uppercase tracking-widest text-sm mb-2 block">Über uns</span>
+      <h2 class="text-4xl md:text-5xl font-serif text-golf-green mb-6">Tradition & Exzellenz in Homburg</h2>
+      <p class="text-gray-600 leading-relaxed mb-6 text-lg">
+        Der Golfclub Homburg/Saar Websweiler Hof zählt zu den reizvollsten Adressen im südwestdeutschen Golfsport.
+        Eingebettet in die malerische Landschaft, bietet unser Platz sowohl sportliche Herausforderung als auch unvergleichliche Naturerlebnisse.
+      </p>
+      <p class="text-gray-600 leading-relaxed mb-8">
+        Seit über 100 Jahren steht unser Club für erstklassigen Golfsport und eine lebendige Clubkultur.
+        Wir laden Sie ein, Teil dieser besonderen Atmosphäre zu werden – ob als Gast oder zukünftiges Mitglied.
+      </p>
+      <a href="/club" class="inline-flex items-center text-golf-green font-bold uppercase tracking-wider hover:text-golf-gold transition-colors">
+        Mehr erfahren
+        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Beginner Section -->
+  <div class="bg-golf-green text-white rounded-sm overflow-hidden shadow-xl">
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+      <div class="p-12 lg:p-20 flex flex-col justify-center">
+        <span class="text-golf-gold font-bold uppercase tracking-widest text-sm mb-2 block">Golf lernen</span>
+        <h2 class="text-3xl md:text-4xl font-serif mb-6">Golf ausprobieren</h2>
+        <p class="text-gray-300 leading-relaxed mb-8 text-lg">
+          Golfspielen ausprobieren, ganz unverbindlich und ohne Verpflichtungen.
+          Unsere Schnupperkurse bieten Ihnen den idealen Einstieg.
+        </p>
+        <ul class="space-y-4 mb-8">
+          <li class="flex items-center text-gray-200">
+            <span class="w-2 h-2 bg-golf-gold rounded-full mr-3"></span>
+            Einfach vorbeikommen und ausprobieren
+          </li>
+          <li class="flex items-center text-gray-200">
+            <span class="w-2 h-2 bg-golf-gold rounded-full mr-3"></span>
+            Schläger werden gestellt
+          </li>
+          <li class="flex items-center text-gray-200">
+            <span class="w-2 h-2 bg-golf-gold rounded-full mr-3"></span>
+            Keine Vorkenntnisse nötig
+          </li>
+        </ul>
+        <div>
+          <a href="https://angebote.mitfit.de/?uuid=3d90a36b-ccbe-43c2-84a0-bfa837f03120&s=1&src=website_services&type=publiclink" target="_blank" rel="noopener noreferrer" class="bg-golf-gold text-white px-8 py-3 font-bold uppercase tracking-widest hover:bg-white hover:text-golf-green transition-colors inline-block">
+            Jetzt anmelden
+          </a>
+        </div>
+      </div>
+      <div class="relative min-h-[400px]">
+        <img
+          src="/images/sample/lernkurs.png"
+          alt="Golf Training"
+          class="absolute inset-0 w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Random image selection on client
+  document.addEventListener('DOMContentLoaded', () => {
+    const images = [
+      '/images/hometeaser_1.webp',
+      '/images/hometeaser_2.webp',
+      '/images/hometeaser_3.webp'
+    ];
+    const randomImageElement = document.querySelector('[data-random-image]');
+    if (randomImageElement) {
+      const randomIndex = Math.floor(Math.random() * images.length);
+      (randomImageElement as HTMLImageElement).src = images[randomIndex];
+    }
+  });
+</script>

@@ -1,0 +1,84 @@
+---
+interface NewsItem {
+  date: string;
+  category: string;
+  title: string;
+  image: string;
+  link: string;
+}
+
+const newsItems: NewsItem[] = [
+  {
+    date: "Aktuell",
+    category: "Aktion",
+    title: "Mitgliedschaft 2026: Jetzt einsteigen",
+    image: "/images/sample/creation_2228718832.jpg",
+    link: "/mitgliedschaft"
+  },
+  {
+    date: "Saison 2026",
+    category: "Sport",
+    title: "Der neue Turnierkalender ist online",
+    image: "/images/sample/creation_2228718834.png",
+    link: "/sport"
+  },
+  {
+    date: "Gastronomie",
+    category: "Genuss",
+    title: "Websweiler Hof: Neue Karte",
+    image: "/images/homberg-gastro_essen.webp",
+    link: "/gastronomie"
+  }
+];
+---
+
+<section class="bg-white py-20 border-t border-gray-100">
+  <div class="container mx-auto px-4 md:px-8">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+      <div>
+        <span class="text-golf-gold font-bold uppercase tracking-widest text-sm mb-2 block">Aktuelles</span>
+        <h2 class="text-4xl font-serif text-golf-green">Neues aus dem Club</h2>
+      </div>
+      <a href="#" class="hidden md:flex items-center text-golf-green font-bold uppercase tracking-wider hover:text-golf-gold transition-colors mt-4 md:mt-0">
+        Alle News
+        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {newsItems.map((item) => (
+        <a href={item.link} class="group cursor-pointer">
+          <div class="overflow-hidden mb-4 rounded-sm shadow-md">
+            <img
+              src={item.image}
+              alt={item.title}
+              class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+          <div class="flex items-center space-x-4 mb-2 text-xs uppercase tracking-wider text-gray-500">
+            <span class="text-golf-gold font-bold">{item.category}</span>
+            <span>•</span>
+            <span>{item.date}</span>
+          </div>
+          <h3 class="text-xl font-serif font-bold text-gray-800 group-hover:text-golf-green transition-colors mb-2">
+            {item.title}
+          </h3>
+          <span class="inline-block text-sm font-bold border-b-2 border-transparent group-hover:border-golf-gold pb-1 transition-all">
+            Weiterlesen
+          </span>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-8 md:hidden text-center">
+      <a href="#" class="inline-flex items-center text-golf-green font-bold uppercase tracking-wider hover:text-golf-gold transition-colors">
+        Alle News
+        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

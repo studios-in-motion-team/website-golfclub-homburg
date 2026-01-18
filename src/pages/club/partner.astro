@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import SubNavigation from '../../components/SubNavigation.astro';
+
+const clubNavItems = [
+  { label: 'Über uns', href: '/club' },
+  { label: 'Die Menschen', href: '/club/menschen' },
+  { label: 'Gastronomie', href: '/gastronomie' },
+  { label: 'Mitgliedschaft/Tarife', href: '/mitgliedschaft' },
+  { label: 'Partner', href: '/club/partner' },
+  { label: 'Newsletter', href: '/club/newsletter' },
+];
+
+const partners = [
+  { name: 'Faceforce', logo: '/images/partner/faceforce.svg', url: 'https://www.faceforce-golfmarketing.de/' },
+  { name: 'Karlsberg', logo: '/images/partner/karlsberg.png', url: 'https://karlsberg.de/' },
+  { name: 'FC 08 Homburg-Saar', logo: '/images/partner/fc08-homburg.svg', url: 'https://www.fc08homburg.de/' },
+  { name: 'Scherer Gruppe', logo: '/images/partner/scherer.svg', url: 'https://www.scherer-gruppe.de/' },
+  { name: 'AVE Befestigungstechnik', logo: '/images/partner/ave.png', url: '#' },
+  { name: 'Becker Mining Systems', logo: '/images/partner/becker-mining.png', url: 'https://www.bfrn-mining.de/' },
+  { name: 'BFD Buchholz', logo: '/images/partner/bfd.png', url: 'https://www.bfd-buchholz.de/' },
+  { name: 'Homburger Consulting', logo: '/images/partner/homburger-consulting.png', url: '#' },
+  { name: 'Intec Kuhn', logo: '/images/partner/intec-kuhn.png', url: 'https://www.intec-kuhn.de/' },
+  { name: 'Kemmler Baustoffe', logo: '/images/partner/kemmler.png', url: 'https://www.kemmler.de/' },
+  { name: 'Dr. Theiss Latschenkiefer', logo: '/images/partner/latschenkiefer.png', url: 'https://www.latschenkiefer.de/' },
+  { name: 'Repa Druck', logo: '/images/partner/repa-druck.png', url: 'https://www.repa-druck.de/' },
+  { name: 'VSE NET', logo: '/images/partner/vsenet.svg', url: 'https://www.vsenet.de/' },
+];
+---
+
+<BaseLayout title="Unsere Partner - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="Unsere Partner"
+      subtitle="Starke Kooperationen für ein erstklassiges Golferlebnis"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={clubNavItems}
+      activeLabel="Partner"
+      parentTitle="DER CLUB"
+    />
+
+    <div class="container mx-auto px-4 py-16 max-w-6xl">
+      <!-- Intro Text -->
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <h2 class="font-serif text-3xl md:text-4xl font-bold text-golf-green mb-6">Gemeinsam stark</h2>
+        <p class="text-xl text-gray-700 leading-relaxed">
+          Wir danken unseren Partnern und Sponsoren für ihre wertvolle Unterstützung.
+          Gemeinsam gestalten wir ein herausragendes Golferlebnis am Websweiler Hof.
+        </p>
+      </div>
+
+      <!-- Partners Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {partners.map((partner) => (
+          <a
+            href={partner.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center justify-center hover:shadow-xl transition-all duration-300 group border-b-4 border-transparent hover:border-golf-gold"
+          >
+            <div class="h-20 flex items-center justify-center mb-4">
+              <img
+                src={partner.logo}
+                alt={partner.name}
+                class="max-h-full max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+            <span class="text-sm font-semibold text-gray-600 text-center group-hover:text-golf-green transition-colors">
+              {partner.name}
+            </span>
+          </a>
+        ))}
+      </div>
+
+      <!-- Partner CTA -->
+      <div class="mt-20 bg-golf-green text-white p-12 rounded-lg text-center">
+        <h3 class="font-serif text-3xl font-bold mb-6">Partner werden?</h3>
+        <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+          Sie möchten Teil unseres Netzwerks werden? Wir freuen uns über Ihr Interesse an einer Partnerschaft.
+        </p>
+        <a
+          href="/kontakt"
+          class="inline-block bg-white text-golf-green px-10 py-4 font-bold uppercase tracking-widest hover:bg-golf-gold hover:text-white transition-all shadow-lg"
+        >
+          Kontakt aufnehmen
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>

@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import SubNavigation from '../../components/SubNavigation.astro';
+import GallerySlider from '../../components/GallerySlider.astro';
+
+const platzNavItems = [
+  { label: 'E-Scoring', href: '/platz/e-scoring' },
+  { label: 'Startzeiten buchen', href: '/platz/startzeiten' },
+  { label: 'Platzübersicht', href: '/platz' },
+  { label: 'Persönliche Scorekarte', href: '/platz/scorekarte' },
+  { label: 'Spielbahnen', href: '/platz/spielbahnen' },
+  { label: 'Übungsbereich', href: '/platz/uebungsbereich' },
+];
+
+const holesData = {
+  1: { par: 5, hcp: 13, yellow: '414', blue: '414', red: '365', tip: 'Dogleg links, bergauf. Höhenunterschied 23m. Drivepunkt: Birken im Dogleg links.' },
+  2: { par: 4, hcp: 5, yellow: '404', blue: '391', red: '348', tip: 'Dogleg rechts. Höhenunterschied 20m. Zielen Sie auf die Fahne, die Sie vor sich sehen.' },
+  3: { par: 4, hcp: 9, yellow: '308', blue: '298', red: '273', tip: 'Dogleg links, bergauf. Höhenunterschied 23m. Ein guter Drive bringt Sie auf 80m bis 120m vor dem Grün.' },
+  4: { par: 5, hcp: 1, yellow: '524', blue: '510', red: '448', tip: 'Dogleg links-rechts. Dieses Par 5 ist schwer zu erreichen. Ein echtes Par 5.' },
+  5: { par: 3, hcp: 11, yellow: '180', blue: '180', red: '159', tip: 'Höhenunterschied 1m. Ein echtes Monster-Par, besonders bei Gegenwind.' },
+  6: { par: 4, hcp: 15, yellow: '313', blue: '284', red: '249', tip: 'Dogleg rechts. Der intelligente Weg ist es, mit einem Eisen abzuschlagen.' },
+  7: { par: 3, hcp: 17, yellow: '138', blue: '127', red: '115', tip: 'Höhenunterschied 5m. Das Grün ist 18m lang und stark verteidigt.' },
+  8: { par: 4, hcp: 3, yellow: '352', blue: '352', red: '305', tip: 'Höhenunterschied 19m. Achtung! Grasbunker und Sandbunker rechts.' },
+  9: { par: 4, hcp: 7, yellow: '393', blue: '393', red: '345', tip: 'Dogleg rechts. Höhenunterschied 23m. Der Drive muss nach links gespielt werden.' },
+  10: { par: 4, hcp: 10, yellow: '258', blue: '258', red: '190', tip: 'Dogleg rechts. Höhenunterschied 17m. Der Schlag zum Grün mit einem kurzen Eisen erfordert Präzision.' },
+  11: { par: 3, hcp: 12, yellow: '171', blue: '171', red: '138', tip: 'Höhenunterschied 10m. Die Schlägerwahl ist stark abhängig von der Windrichtung.' },
+  12: { par: 4, hcp: 8, yellow: '345', blue: '314', red: '266', tip: 'Höhenunterschied 8m. Der Drive ist der Schlüssel zum Erfolg.' },
+  13: { par: 5, hcp: 14, yellow: '458', blue: '458', red: '406', tip: 'Dogleg rechts-links. Longhitter haben hier die Möglichkeit, ein Par 5 mit 2 Schlägen zu erreichen.' },
+  14: { par: 5, hcp: 4, yellow: '524', blue: '490', red: '431', tip: 'Höhenunterschied 25m. Ein Golfloch, das intelligentes Spiel mit einem Birdie belohnt.' },
+  15: { par: 3, hcp: 18, yellow: '125', blue: '87', red: '87', tip: 'Höhenunterschied 3m. Eigentlich ein einfacher Schlag, wenn da nicht die "Aquaphobie" wäre.' },
+  16: { par: 5, hcp: 2, yellow: '468', blue: '394', red: '394', tip: 'Dogleg links, bergauf. Höhenunterschied 23m. Drivepunkt: Birken im Dogleg links.' },
+  17: { par: 3, hcp: 16, yellow: '169', blue: '120', red: '120', tip: 'Augen zu und drauf. Wer das Grün trifft, hat eine Chance für Par.' },
+  18: { par: 4, hcp: 6, yellow: '309', blue: '238', red: '238', tip: 'Kurzes aber sehr reizvolles Loch. Das Karlsberg UrPils wartet schon.' },
+};
+---
+
+<BaseLayout title="Spielbahnen - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="Unsere Spielbahnen"
+      subtitle="Entdecken Sie jede Bahn im Detail"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={platzNavItems}
+      activeLabel="Spielbahnen"
+      parentTitle="GOLFPLATZ"
+    />
+
+    <div class="container mx-auto px-4 py-16">
+      <!-- Hole Selection Grid -->
+      <div class="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-9 gap-2 mb-16">
+        {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18].map((num) => (
+          <button
+            data-hole={num}
+            class={`hole-btn py-3 border-2 font-bold transition-all text-sm ${num === 1 ? 'bg-golf-green text-white border-golf-green' : 'bg-white text-gray-700 border-gray-100 hover:border-golf-gold'}`}
+          >
+            Bahn {num}
+          </button>
+        ))}
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <div>
+          <div class="flex items-center space-x-4 mb-6">
+            <span id="hole-number" class="bg-golf-gold text-white w-12 h-12 flex items-center justify-center font-bold text-xl rounded-full">1</span>
+            <h2 id="hole-title" class="font-serif text-3xl font-bold text-golf-green">Bahn 1</h2>
+          </div>
+
+          <div class="bg-white p-8 shadow-sm border-t-4 border-golf-gold mb-8">
+            <h3 class="text-xl font-bold text-golf-green mb-4">Pro-Tipp</h3>
+            <p id="hole-tip" class="text-gray-700 leading-relaxed italic">
+              "Dogleg links, bergauf. Höhenunterschied 23m. Drivepunkt: Birken im Dogleg links."
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-8">
+            <div class="bg-golf-light p-4 text-center">
+              <span class="block text-xs uppercase text-golf-green font-bold mb-1">Par</span>
+              <span id="hole-par" class="text-2xl font-bold text-gray-800">5</span>
+            </div>
+            <div class="bg-golf-light p-4 text-center">
+              <span class="block text-xs uppercase text-golf-green font-bold mb-1">HCP</span>
+              <span id="hole-hcp" class="text-2xl font-bold text-gray-800">13</span>
+            </div>
+            <div class="bg-yellow-50 p-4 text-center border-b-4 border-yellow-400">
+              <span class="block text-xs uppercase text-yellow-700 font-bold mb-1">Gelb</span>
+              <span id="hole-yellow" class="text-xl font-bold text-gray-800">414m</span>
+            </div>
+            <div class="bg-blue-50 p-4 text-center border-b-4 border-blue-400">
+              <span class="block text-xs uppercase text-blue-700 font-bold mb-1">Blau</span>
+              <span id="hole-blue" class="text-xl font-bold text-gray-800">414m</span>
+            </div>
+            <div class="bg-red-50 p-4 text-center border-b-4 border-red-400">
+              <span class="block text-xs uppercase text-red-700 font-bold mb-1">Rot</span>
+              <span id="hole-red" class="text-xl font-bold text-gray-800">365m</span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-4">
+            <a href="/platz" class="border-2 border-golf-green text-golf-green px-8 py-3 font-bold uppercase tracking-widest hover:bg-golf-green hover:text-white transition-all">
+              Platzübersicht
+            </a>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="aspect-[3/4] bg-white rounded-lg overflow-hidden shadow-2xl border-4 border-gray-100">
+            <img
+              id="hole-image"
+              src="/images/bahnen/1.jpg"
+              alt="Bahn 1 Layout"
+              class="w-full h-full object-contain p-4"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <GallerySlider />
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<script define:vars={{ holesData }}>
+  const buttons = document.querySelectorAll('.hole-btn');
+  const holeNumber = document.getElementById('hole-number');
+  const holeTitle = document.getElementById('hole-title');
+  const holeTip = document.getElementById('hole-tip');
+  const holePar = document.getElementById('hole-par');
+  const holeHcp = document.getElementById('hole-hcp');
+  const holeYellow = document.getElementById('hole-yellow');
+  const holeBlue = document.getElementById('hole-blue');
+  const holeRed = document.getElementById('hole-red');
+  const holeImage = document.getElementById('hole-image');
+
+  function updateHole(num) {
+    const data = holesData[num];
+    if (!data) return;
+
+    // Update UI
+    holeNumber.textContent = num;
+    holeTitle.textContent = `Bahn ${num}`;
+    holeTip.textContent = `"${data.tip}"`;
+    holePar.textContent = data.par;
+    holeHcp.textContent = data.hcp;
+    holeYellow.textContent = `${data.yellow}m`;
+    holeBlue.textContent = `${data.blue}m`;
+    holeRed.textContent = `${data.red}m`;
+    holeImage.src = `/images/bahnen/${num}.jpg`;
+    holeImage.alt = `Bahn ${num} Layout`;
+
+    // Update button styles
+    buttons.forEach(btn => {
+      const btnHole = parseInt(btn.dataset.hole);
+      if (btnHole === num) {
+        btn.classList.add('bg-golf-green', 'text-white', 'border-golf-green');
+        btn.classList.remove('bg-white', 'text-gray-700', 'border-gray-100');
+      } else {
+        btn.classList.remove('bg-golf-green', 'text-white', 'border-golf-green');
+        btn.classList.add('bg-white', 'text-gray-700', 'border-gray-100');
+      }
+    });
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const num = parseInt(btn.dataset.hole);
+      updateHole(num);
+    });
+  });
+</script>

@@ -1,0 +1,137 @@
+---
+const pathname = Astro.url.pathname;
+const isHome = pathname === '/';
+
+const navLinks = [
+  { name: 'Der Club', href: '/club' },
+  { name: 'Golfplatz', href: '/platz' },
+  { name: 'Gastronomie', href: '/gastronomie' },
+  { name: 'Mitgliedschaft', href: '/mitgliedschaft' },
+  { name: 'Sport', href: '/sport' },
+];
+---
+
+<header id="main-header" class="fixed w-full z-50 transition-all duration-300 ease-in-out py-6">
+  <div class="container mx-auto px-4 md:px-8 flex justify-between items-center">
+    <!-- Logo Area -->
+    <a href="/" class="flex items-center space-x-2 group">
+      <div id="logo-circle" class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors border-white text-white">
+        <span class="font-serif font-bold text-xl">W</span>
+      </div>
+      <div id="logo-text" class="flex flex-col transition-colors text-white">
+        <span class="font-serif text-lg leading-none font-bold uppercase tracking-wider">Websweiler Hof</span>
+        <span class="text-[10px] leading-none uppercase tracking-[0.2em]">Golfclub Homburg</span>
+      </div>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="nav-link text-sm font-semibold uppercase tracking-widest hover:text-golf-gold transition-colors text-white"
+        >
+          {link.name}
+        </a>
+      ))}
+    </nav>
+
+    <!-- CTA Buttons -->
+    <div class="hidden lg:flex items-center space-x-4">
+      <a href="/mitgliedschaft" class="px-5 py-2 text-sm font-bold uppercase tracking-wider bg-golf-gold text-white hover:bg-yellow-700 transition-colors">
+        Mitglied werden
+      </a>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button id="mobile-menu-btn" class="lg:hidden">
+      <svg id="menu-icon" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+      <svg id="close-icon" class="w-6 h-6 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="lg:hidden hidden absolute top-full left-0 w-full bg-white shadow-lg py-6 px-4 flex flex-col space-y-4">
+    {navLinks.map((link) => (
+      <a href={link.href} class="text-gray-800 font-semibold uppercase tracking-wider text-center block hover:text-golf-gold">
+        {link.name}
+      </a>
+    ))}
+    <hr class="border-gray-200" />
+    <a href="/mitgliedschaft" class="w-full py-3 text-sm font-bold uppercase tracking-wider bg-golf-gold text-white text-center block">
+      Mitglied werden
+    </a>
+  </div>
+</header>
+
+<script define:vars={{ isHome }}>
+  const header = document.getElementById('main-header');
+  const logoCircle = document.getElementById('logo-circle');
+  const logoText = document.getElementById('logo-text');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  function updateHeaderStyle() {
+    const isScrolled = window.scrollY > 50;
+    const shouldBeLight = isScrolled || !isHome;
+
+    if (shouldBeLight) {
+      header.classList.add('bg-white', 'shadow-md', 'py-2');
+      header.classList.remove('bg-transparent', 'py-6');
+      logoCircle.classList.add('border-golf-green', 'text-golf-green');
+      logoCircle.classList.remove('border-white', 'text-white');
+      logoText.classList.add('text-golf-green');
+      logoText.classList.remove('text-white');
+      navLinks.forEach(link => {
+        link.classList.add('text-gray-800');
+        link.classList.remove('text-white');
+      });
+      menuIcon.classList.add('text-gray-800');
+      menuIcon.classList.remove('text-white');
+      closeIcon.classList.add('text-gray-800');
+      closeIcon.classList.remove('text-white');
+    } else {
+      header.classList.remove('bg-white', 'shadow-md', 'py-2');
+      header.classList.add('bg-transparent', 'py-6');
+      logoCircle.classList.remove('border-golf-green', 'text-golf-green');
+      logoCircle.classList.add('border-white', 'text-white');
+      logoText.classList.remove('text-golf-green');
+      logoText.classList.add('text-white');
+      navLinks.forEach(link => {
+        link.classList.remove('text-gray-800');
+        link.classList.add('text-white');
+      });
+      menuIcon.classList.remove('text-gray-800');
+      menuIcon.classList.add('text-white');
+      closeIcon.classList.remove('text-gray-800');
+      closeIcon.classList.add('text-white');
+    }
+  }
+
+  // Initial update
+  updateHeaderStyle();
+
+  // Scroll listener
+  window.addEventListener('scroll', updateHeaderStyle);
+
+  // Mobile menu toggle
+  mobileMenuBtn.addEventListener('click', () => {
+    const isOpen = !mobileMenu.classList.contains('hidden');
+    if (isOpen) {
+      mobileMenu.classList.add('hidden');
+      menuIcon.classList.remove('hidden');
+      closeIcon.classList.add('hidden');
+    } else {
+      mobileMenu.classList.remove('hidden');
+      menuIcon.classList.add('hidden');
+      closeIcon.classList.remove('hidden');
+    }
+  });
+</script>

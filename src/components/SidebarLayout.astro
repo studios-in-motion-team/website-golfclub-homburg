@@ -1,0 +1,48 @@
+---
+interface SidebarItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  sidebarTitle: string;
+  sidebarItems: SidebarItem[];
+  currentPath: string;
+}
+
+const { sidebarTitle, sidebarItems, currentPath } = Astro.props;
+---
+
+<div class="bg-gray-100">
+  <div class="container mx-auto px-4 py-12">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <!-- Sidebar -->
+      <aside class="lg:w-64 flex-shrink-0">
+        <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
+          <h3 class="text-xs font-bold text-golf-green uppercase tracking-widest mb-4 border-b border-gray-200 pb-3">
+            {sidebarTitle}
+          </h3>
+          <nav class="space-y-1">
+            {sidebarItems.map((item) => (
+              <a
+                href={item.href}
+                class={`block px-3 py-2 rounded text-sm transition-colors duration-200 ${
+                  currentPath === item.href
+                    ? 'bg-golf-green text-white font-medium'
+                    : 'text-gray-700 hover:bg-golf-gold/10 hover:text-golf-green'
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 bg-white rounded-lg shadow-lg p-8">
+        <slot />
+      </main>
+    </div>
+  </div>
+</div>

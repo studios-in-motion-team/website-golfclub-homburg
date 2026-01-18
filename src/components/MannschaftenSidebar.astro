@@ -1,0 +1,42 @@
+---
+interface Props {
+  activeLabel?: string;
+}
+
+const { activeLabel } = Astro.props;
+
+const mannschaftenItems = [
+  { label: 'Übersicht', href: '/sport/mannschaften' },
+  { label: 'Clubmannschaft Herren', href: '/sport/mannschaften/clubmannschaft-herren' },
+  { label: 'AK 30 Herren', href: '/sport/mannschaften/ak-30-herren' },
+  { label: 'AK 30 Herren II', href: '/sport/mannschaften/ak-30-herren-ii' },
+  { label: 'AK 30 Damen', href: '/sport/mannschaften/ak-30-damen' },
+  { label: 'AK 50 Herren', href: '/sport/mannschaften/ak-50-herren' },
+  { label: 'AK 65 Damen', href: '/sport/mannschaften/ak-65-damen' },
+  { label: 'AK 65 Herren', href: '/sport/mannschaften/ak-65-herren' },
+];
+---
+
+<aside class="w-full lg:w-64 lg:flex-shrink-0">
+  <nav class="bg-white shadow-lg rounded-lg overflow-hidden lg:sticky lg:top-24">
+    <div class="bg-golf-green text-white px-6 py-4">
+      <h3 class="font-serif text-lg font-bold uppercase tracking-wider">Mannschaften</h3>
+    </div>
+    <ul class="divide-y divide-gray-100">
+      {mannschaftenItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class={`block px-6 py-3 text-sm font-medium transition-all duration-200 border-l-4
+              ${activeLabel === item.label
+                ? 'bg-golf-gold/10 text-golf-green border-golf-gold font-bold'
+                : 'text-gray-700 border-transparent hover:bg-gray-50 hover:border-golf-green hover:text-golf-green'
+              }`}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</aside>

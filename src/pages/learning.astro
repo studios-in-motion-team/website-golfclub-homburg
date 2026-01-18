@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Golfschule - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <div class="bg-golf-gold text-white py-20 px-4">
+      <div class="container mx-auto max-w-4xl text-center">
+        <h1 class="font-serif text-5xl font-bold mb-6">Golfschule</h1>
+        <p class="text-xl font-light tracking-wide opacity-90">
+          Der perfekte Einstieg und professionelles Training am Websweiler Hof
+        </p>
+      </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-16 max-w-5xl">
+      <div class="mb-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div class="order-2 lg:order-1">
+            <span class="text-golf-gold font-bold uppercase tracking-widest text-sm mb-2 block">Einsteiger</span>
+            <h2 class="font-serif text-4xl font-bold text-golf-green mb-6">Golf ausprobieren</h2>
+            <div class="prose text-gray-700 mb-8">
+              <p>
+                Natürlich brauchen Sie für den Weg zum Spitzengolf herausragende mentale und körperliche Fähigkeiten.
+                Das Schöne am Golfsport: Jeder andere kann auch Golf spielen.
+              </p>
+              <p>
+                Einfach so anfangen mit dem Golfsport? Kein Problem. Probieren Sie es unverbindlich bei unseren Schnupperkursen aus.
+              </p>
+            </div>
+            <a href="https://angebote.mitfit.de/?uuid=3d90a36b-ccbe-43c2-84a0-bfa837f03120&s=1&src=website_homecontent&type=publiclink" target="_blank" rel="noopener noreferrer" class="bg-golf-green text-white px-8 py-3 font-bold uppercase tracking-widest hover:bg-opacity-90 transition-colors inline-block">
+              Zur Schnupperkurs-Anmeldung
+            </a>
+          </div>
+          <div class="order-1 lg:order-2 h-80 bg-gray-200 rounded-lg overflow-hidden relative shadow-lg">
+            <img src="/images/sample/creation_2228725933.png" alt="Golf Training" class="w-full h-full object-cover" />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div class="h-80 bg-gray-200 rounded-lg overflow-hidden relative shadow-lg">
+            <img src="/images/sample/creation_2228725943.png" alt="Pro beim Unterricht" class="w-full h-full object-cover" />
+          </div>
+          <div>
+            <span class="text-golf-gold font-bold uppercase tracking-widest text-sm mb-2 block">Fortgeschrittene</span>
+            <h2 class="font-serif text-4xl font-bold text-golf-green mb-6">Besser werden</h2>
+            <div class="prose text-gray-700 mb-8">
+              <p>
+                Verbessern Sie Ihr Handicap mit unseren erfahrenen PGA-Pros. Ob Einzelunterricht, Gruppenkurse oder spezielle thematische Workshops – wir bieten für jedes Spielniveau das passende Training.
+              </p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="border border-gray-200 p-4 rounded-sm">
+                <h4 class="font-bold text-golf-green">Einzelstunde (50 min)</h4>
+                <p class="text-sm text-gray-600 mt-1">ab 60,- €</p>
+              </div>
+              <div class="border border-gray-200 p-4 rounded-sm">
+                <h4 class="font-bold text-golf-green">10er Karte</h4>
+                <p class="text-sm text-gray-600 mt-1">ab 540,- €</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>

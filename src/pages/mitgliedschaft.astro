@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import SubNavigation from '../components/SubNavigation.astro';
+
+const clubNavItems = [
+  { label: 'Über uns', href: '/club' },
+  { label: 'Die Menschen', href: '/club/menschen' },
+  { label: 'Gastronomie', href: '/gastronomie' },
+  { label: 'Mitgliedschaft/Tarife', href: '/mitgliedschaft' },
+  { label: 'Partner', href: '/club/partner' },
+  { label: 'Newsletter', href: '/club/newsletter' },
+];
+
+const tariffs18Hole = [
+  { category: 'Schnupperjahr', description: 'Mit Platzreife', price: '69' },
+  { category: 'Übergangsjahr', description: 'Nach dem Schnupperjahr', price: '142' },
+  { category: 'Kinder / Jugendliche', description: 'Bis 18 Jahre', price: 'beitragsfrei' },
+  { category: 'Junioren', description: '19 bis 25 Jahre', price: '25' },
+  { category: 'Junge Erwachsene', description: '26 bis 30 Jahre', price: '67' },
+  { category: 'Einzelmitglied', description: 'Vollmitgliedschaft', price: '167' },
+  { category: 'Paare', description: 'Zwei Personen', price: '300' },
+];
+---
+
+<BaseLayout title="Mitgliedschaft & Tarife - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="Mitgliedschaft & Tarife"
+      subtitle="Werden Sie Teil unserer Gemeinschaft am Websweiler Hof"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={clubNavItems}
+      activeLabel="Mitgliedschaft/Tarife"
+      parentTitle="DER CLUB"
+    />
+
+    <div class="container mx-auto px-4 py-16">
+      <!-- Special Offer -->
+      <div class="bg-golf-gold text-white p-8 md:p-12 mb-16 rounded-sm shadow-xl max-w-4xl mx-auto text-center">
+        <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">GOLF-MITGLIEDSCHAFT</h2>
+        <div class="text-5xl md:text-6xl font-bold mb-4">59,00 € <span class="text-2xl font-normal">/ Monat</span></div>
+        <p class="text-lg opacity-90 mb-2 font-serif italic">Statt regulär 69,00 €/Monat</p>
+        <p class="text-xl font-bold mb-6">Gültig bis 31.12.2025!</p>
+        <div class="inline-block bg-white text-golf-green font-bold px-8 py-3 uppercase tracking-wider text-sm">
+          Nur für die ersten 30 Anmeldungen!
+        </div>
+      </div>
+
+      <!-- Mitfit Embed Widget -->
+      <div class="max-w-5xl mx-auto mb-16">
+        <div id="mitfitpage" data-uuid="d781f641-7fc7-4423-9575-ac65a2ec5399" data-adsrc="homepage" data-embedded2025="1"></div>
+      </div>
+
+      <!-- 18 Loch Tarife -->
+      <div class="max-w-5xl mx-auto mb-16">
+        <div class="flex items-center space-x-4 mb-8">
+          <div class="h-px bg-golf-gold flex-grow"></div>
+          <h2 class="font-serif text-2xl md:text-3xl font-bold text-golf-green uppercase tracking-wider text-center">
+            18 Loch Platz
+          </h2>
+          <div class="h-px bg-golf-gold flex-grow"></div>
+        </div>
+        <p class="text-center text-gray-600 mb-8">Monatliche Nutzungsgebühren ab 01.01.2026</p>
+
+        <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+          <table class="w-full">
+            <thead>
+              <tr class="bg-golf-green text-white">
+                <th class="text-left py-4 px-6 font-bold">Kategorie</th>
+                <th class="text-left py-4 px-6 font-bold hidden sm:table-cell">Beschreibung</th>
+                <th class="text-right py-4 px-6 font-bold">Preis/Monat</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tariffs18Hole.map((tariff, index) => (
+                <tr class={`border-b border-gray-100 ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-golf-light transition-colors`}>
+                  <td class="py-4 px-6 font-semibold text-gray-800">{tariff.category}</td>
+                  <td class="py-4 px-6 text-gray-600 hidden sm:table-cell">{tariff.description}</td>
+                  <td class="py-4 px-6 text-right">
+                    {tariff.price === 'beitragsfrei' ? (
+                      <span class="text-golf-green font-bold">beitragsfrei</span>
+                    ) : (
+                      <span class="text-golf-green font-bold text-lg">{tariff.price} €</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 text-sm text-gray-500 space-y-1">
+          <p>* Alle Preise inkl. gesetzlicher Umsatzsteuer</p>
+          <p>* Zzgl. 31,50 € pro Jahr DGV und 24,00 € pro Jahr Vereinsgebühren</p>
+          <p>** Platznutzung nur mit Platzreife möglich</p>
+        </div>
+      </div>
+
+      <!-- Kurzplatz Tarife -->
+      <div class="max-w-5xl mx-auto mb-16">
+        <div class="flex items-center space-x-4 mb-8">
+          <div class="h-px bg-golf-gold flex-grow"></div>
+          <h2 class="font-serif text-2xl md:text-3xl font-bold text-golf-green uppercase tracking-wider text-center">
+            Kurzplatz
+          </h2>
+          <div class="h-px bg-golf-gold flex-grow"></div>
+        </div>
+        <p class="text-center text-gray-600 mb-8">Monatliche Nutzungsgebühren ab 01.01.2026</p>
+
+        <div class="bg-white shadow-xl rounded-lg p-8 text-center max-w-md mx-auto border-t-4 border-golf-gold">
+          <div class="text-5xl font-bold text-golf-green mb-4">39 €<span class="text-xl text-gray-500 font-normal"> / Monat</span></div>
+          <p class="text-gray-600 mb-4">Keine Platzreife nötig</p>
+          <p class="text-golf-gold font-semibold">Sofort Golf spielen möglich!</p>
+        </div>
+
+        <div class="mt-4 text-sm text-gray-500 text-center">
+          <p>* Alle Preise inkl. gesetzlicher Umsatzsteuer</p>
+        </div>
+      </div>
+
+      <!-- Kontakt -->
+      <div class="max-w-4xl mx-auto bg-golf-green text-white p-8 md:p-12 rounded-lg text-center">
+        <h3 class="font-serif text-3xl font-bold mb-6">Weitere Informationen</h3>
+        <p class="text-xl mb-6 opacity-90">
+          Für Details zu speziellen Arrangements und den jeweiligen Verträgen wenden Sie sich bitte an unser Sekretariat.
+        </p>
+        <div class="space-y-2 mb-8">
+          <p class="text-2xl font-bold">06841 77 776-0</p>
+          <p class="text-lg">info@golfsaar.de</p>
+        </div>
+        <a
+          href="/kontakt"
+          class="inline-block bg-white text-golf-green px-10 py-4 font-bold uppercase tracking-widest hover:bg-golf-gold hover:text-white transition-all shadow-lg"
+        >
+          Kontakt aufnehmen
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<script>
+  // Load Mitfit widget
+  const mitfitEl = document.getElementById('mitfitpage');
+  if (mitfitEl) {
+    mitfitEl.setAttribute('uuid', mitfitEl.dataset.uuid || '');
+    mitfitEl.setAttribute('adsrc', mitfitEl.dataset.adsrc || '');
+    mitfitEl.setAttribute('embedded2025', mitfitEl.dataset.embedded2025 || '');
+    
+    const script = document.createElement('script');
+    script.src = 'https://angebote.mitfit.de/embed.js';
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+  }
+</script>

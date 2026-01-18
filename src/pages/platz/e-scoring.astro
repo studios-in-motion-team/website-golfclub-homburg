@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import SubNavigation from '../../components/SubNavigation.astro';
+
+const platzNavItems = [
+  { label: 'E-Scoring', href: '/platz/e-scoring' },
+  { label: 'Startzeiten buchen', href: '/platz/startzeiten' },
+  { label: 'Platzübersicht', href: '/platz' },
+  { label: 'Persönliche Scorekarte', href: '/platz/scorekarte' },
+  { label: 'Spielbahnen', href: '/platz/spielbahnen' },
+  { label: 'Übungsbereich', href: '/platz/uebungsbereich' },
+];
+---
+
+<BaseLayout title="E-Scoring - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="E-Scoring"
+      subtitle="Die digitale Scorekarte in unserer PC CADDIE App"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={platzNavItems}
+      activeLabel="E-Scoring"
+      parentTitle="GOLFPLATZ"
+    />
+
+    <div class="container mx-auto px-4 py-16 max-w-5xl">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="font-serif text-3xl font-bold text-golf-green mb-6">Digitale Turnierabwicklung</h2>
+          <div class="prose prose-lg text-gray-700">
+            <p class="mb-6 leading-relaxed">
+              Wir führen bei unseren Turnieren das <strong>E-Scoring ohne Scorekarten in Papierform</strong> durch.
+              Dies schont nicht nur die Umwelt, sondern macht die Ergebniserfassung auch schneller und fehlerfreier.
+            </p>
+            <p class="mb-6 leading-relaxed">
+              Unser E-Scoring wird bequem über die <strong>PC CADDIE App</strong> durchgeführt. Diese Abwicklung ist schnell, einfach zu bedienen und bietet Ihnen sofortigen Einblick in das Leaderboard.
+            </p>
+            <div class="bg-golf-light p-6 rounded-lg border-l-4 border-golf-gold mb-8">
+              <p class="font-bold text-golf-green mb-2">Persönliche Betreuung</p>
+              <p class="text-sm">
+                Wir lassen Sie nicht allein! Bei den ersten Turnieren stehen wir Ihnen natürlich persönlich mit Rat und Tat zur Seite.
+              </p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a
+                href="https://www.golfsaar.de/fileadmin/content/Dokumente/Anleitung_E-Scoringy.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center bg-golf-green text-white px-8 py-3 font-bold uppercase tracking-wider hover:bg-opacity-90 transition-all shadow-md"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                Anleitung (PDF)
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="flex justify-center relative z-10">
+            <img
+              src="/images/pccaddie_mockup.png"
+              alt="PC CADDIE App E-Scoring"
+              class="w-full max-w-[320px] h-auto drop-shadow-2xl hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+          <!-- Decorative elements -->
+          <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-golf-gold opacity-20 rounded-full blur-3xl -z-0"></div>
+          <div class="absolute bottom-20 right-20 w-48 h-48 bg-golf-green opacity-20 rounded-full blur-3xl -z-0"></div>
+
+          <div class="flex flex-col sm:flex-row justify-center gap-4 mt-12">
+            <a
+              href="https://apps.apple.com/de/app/pc-caddie-golf-club-app/id823519823"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors shadow-lg z-10"
+            >
+              <svg class="w-8 h-8 mr-3" viewBox="0 0 384 512" fill="currentColor">
+                <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 34.6 77.8 77.3 78.1 27.1 .2 35.3-17.6 66.2-17.6 30.6 0 38.5 17.6 66.2 17.6 34.6 0 54.4-40.8 77.4-78.1 11.2-18.1 28.3-46.7 13.9-88-25.5-12.7-40.8-37.4-40.8-66zM170.8 123.9c18.5-20.9 33.7-52 28.3-82.6-26.7 .9-59 17.6-78.3 40.5-17.2 20.2-31.4 51.6-27.1 82.2 29.8 1.4 60.3-21.7 77-40z" />
+              </svg>
+              <div class="text-left">
+                <div class="text-xs">Laden im</div>
+                <div class="text-sm font-bold font-sans">App Store</div>
+              </div>
+            </a>
+            <a
+              href="https://play.google.com/store/apps/details?id=de.pcco.pccaddie&hl=de"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors shadow-lg z-10"
+            >
+              <svg class="w-8 h-8 mr-3" viewBox="0 0 512 512" fill="currentColor">
+                <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z" />
+              </svg>
+              <div class="text-left">
+                <div class="text-xs">JETZT BEI</div>
+                <div class="text-sm font-bold font-sans">Google Play</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>

@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNavigation from '../../../components/SubNavigation.astro';
+import AbteilungenSidebar from '../../../components/AbteilungenSidebar.astro';
+
+const sportNavItems = [
+  { label: 'Abteilungen', href: '/sport' },
+  { label: 'Mannschaften', href: '/sport/mannschaften' },
+  { label: 'Jugend', href: '/sport/jugend' },
+  { label: 'Turniere', href: '/sport/turniere' },
+];
+---
+
+<BaseLayout title="Mens Day - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="Mens Day"
+      subtitle="Der Herrentag am Websweiler Hof"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={sportNavItems}
+      activeLabel="Abteilungen"
+      parentTitle="SPORT"
+    />
+
+    <div class="container mx-auto px-4 py-12 max-w-6xl">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <AbteilungenSidebar activeLabel="Mens Day" />
+        
+        <main class="flex-1">
+          <div class="bg-white rounded-lg shadow-lg p-8">
+            <h2 class="font-serif text-3xl font-bold text-golf-green mb-6">Mens Day</h2>
+            
+            <div class="prose prose-lg max-w-none text-gray-700">
+              <p class="mb-6">
+                Der Mens Day bietet allen Herren des Clubs die Gelegenheit, in lockerer Atmosphäre 
+                gemeinsam zu spielen und sich auszutauschen.
+              </p>
+              
+              <div class="bg-golf-gold/10 border-l-4 border-golf-gold p-6 rounded-r-lg mb-8">
+                <h3 class="font-bold text-lg text-golf-green mb-2">Jeden Mittwoch</h3>
+                <p class="text-gray-600 mb-0">
+                  Treffpunkt um 14:00 Uhr am Clubhaus. Anmeldung bis Dienstag 18:00 Uhr im Sekretariat.
+                </p>
+              </div>
+
+              <h3 class="font-serif text-xl font-bold text-golf-green mt-8 mb-4">Das erwartet Sie</h3>
+              <ul class="space-y-2 mb-6">
+                <li class="flex items-start">
+                  <span class="text-golf-gold mr-2">●</span>
+                  Gesellige Runde unter Golfkameraden
+                </li>
+                <li class="flex items-start">
+                  <span class="text-golf-gold mr-2">●</span>
+                  Verschiedene Spielformate und freundschaftliche Wettbewerbe
+                </li>
+                <li class="flex items-start">
+                  <span class="text-golf-gold mr-2">●</span>
+                  Gemütliches Beisammensein im "19. Loch" im Anschluss
+                </li>
+                <li class="flex items-start">
+                  <span class="text-golf-gold mr-2">●</span>
+                  Netzwerken und Erfahrungsaustausch
+                </li>
+              </ul>
+
+              <h3 class="font-serif text-xl font-bold text-golf-green mt-8 mb-4">Ansprechpartner</h3>
+              <p>
+                Bei Fragen zum Mens Day wenden Sie sich bitte an unser Sekretariat oder 
+                direkt an den Herren Captain.
+              </p>
+            </div>
+
+            <a
+              href="/kontakt"
+              class="inline-block mt-8 bg-golf-green text-white font-bold py-3 px-8 rounded hover:bg-opacity-90 transition-colors duration-200 uppercase tracking-widest text-sm shadow-md"
+            >
+              Jetzt anmelden
+            </a>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>

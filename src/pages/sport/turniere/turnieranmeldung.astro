@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNavigation from '../../../components/SubNavigation.astro';
+import SidebarLayout from '../../../components/SidebarLayout.astro';
+
+const sportNavItems = [
+  { label: 'Abteilungen', href: '/sport' },
+  { label: 'Mannschaften', href: '/sport/mannschaften' },
+  { label: 'Jugend', href: '/sport/jugend' },
+  { label: 'Turniere', href: '/sport/turniere' },
+];
+
+const sidebarItems = [
+  { label: 'Übersicht', href: '/sport/turniere' },
+  { label: 'Turnieranmeldung', href: '/sport/turniere/turnieranmeldung' },
+  { label: 'Startlisten', href: '/sport/turniere/startlisten' },
+  { label: 'Ergebnisse', href: '/sport/turniere/ergebnisse' },
+];
+---
+
+<BaseLayout title="Turnieranmeldung - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="Turnieranmeldung"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={sportNavItems}
+      activeLabel="Turniere"
+      parentTitle="SPORT"
+    />
+
+    <SidebarLayout sidebarTitle="TURNIERE" sidebarItems={sidebarItems} currentPath="/sport/turniere/turnieranmeldung">
+      <h2 class="font-serif text-3xl font-bold text-golf-green mb-6">Turnieranmeldung</h2>
+      
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <p class="mb-6">
+          Hier können Sie sich zu unseren aktuellen Turnieren anmelden. Wählen Sie einfach das 
+          gewünschte Turnier aus der Liste und füllen Sie das Anmeldeformular aus.
+        </p>
+
+        <div class="bg-golf-gold/10 border-l-4 border-golf-gold p-6 rounded-r-lg mb-8">
+          <h3 class="font-bold text-lg text-golf-green mb-2">Hinweis zur Anmeldung</h3>
+          <p class="text-gray-600 mb-0">
+            Die Anmeldung zu Turnieren ist in der Regel bis 48 Stunden vor Turnierbeginn möglich. 
+            Bei Fragen zur Anmeldung wenden Sie sich bitte an unser Sekretariat.
+          </p>
+        </div>
+
+        <h3 class="font-serif text-xl font-bold text-golf-green mt-8 mb-4">Aktuelle Turniere</h3>
+        
+        <div class="bg-gray-50 rounded-lg p-8 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-golf-green/30 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <p class="text-gray-500 mb-4">Die aktuellen Turniere werden hier angezeigt.</p>
+          <p class="text-sm text-gray-400">Turnierkalender folgt in Kürze</p>
+        </div>
+
+        <h3 class="font-serif text-xl font-bold text-golf-green mt-8 mb-4">So melden Sie sich an</h3>
+        <ol class="list-decimal list-inside space-y-3 mb-6">
+          <li>Wählen Sie das gewünschte Turnier aus der Liste</li>
+          <li>Prüfen Sie die Turnierausschreibung</li>
+          <li>Füllen Sie das Anmeldeformular aus</li>
+          <li>Sie erhalten eine Bestätigung per E-Mail</li>
+        </ol>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 mt-8">
+        <a
+          href="/kontakt"
+          class="inline-block bg-golf-green text-white text-center font-bold py-3 px-8 rounded hover:bg-opacity-90 transition-colors duration-200 uppercase tracking-widest text-sm shadow-md"
+        >
+          Kontakt Sekretariat
+        </a>
+      </div>
+    </SidebarLayout>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>

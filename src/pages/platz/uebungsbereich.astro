@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import SubNavigation from '../../components/SubNavigation.astro';
+
+const platzNavItems = [
+  { label: 'E-Scoring', href: '/platz/e-scoring' },
+  { label: 'Startzeiten buchen', href: '/platz/startzeiten' },
+  { label: 'Platzübersicht', href: '/platz' },
+  { label: 'Persönliche Scorekarte', href: '/platz/scorekarte' },
+  { label: 'Spielbahnen', href: '/platz/spielbahnen' },
+  { label: 'Übungsbereich', href: '/platz/uebungsbereich' },
+];
+---
+
+<BaseLayout title="Übungsbereich - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="Übungsbereich"
+      subtitle="Optimale Bedingungen für Ihr Training"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={platzNavItems}
+      activeLabel="Übungsbereich"
+      parentTitle="GOLFPLATZ"
+    />
+
+    <div class="container mx-auto px-4 py-16 max-w-6xl">
+      <!-- Intro Section -->
+      <div class="mb-20 text-center max-w-3xl mx-auto">
+        <h2 class="font-serif text-3xl md:text-4xl font-bold text-golf-green mb-8">Trainieren wie die Profis</h2>
+        <p class="text-xl text-gray-700 leading-relaxed mb-8">
+          Unsere Übungseinrichtungen stehen allen Golfinteressierten frei zur Verfügung.
+          Verbessern Sie Ihr Handicap in direkter Nähe zur Natur.
+        </p>
+        <div class="bg-golf-light p-8 rounded-lg inline-block text-left">
+          <h3 class="font-bold text-golf-green mb-4 text-lg border-b border-golf-gold pb-2 inline-block">Sie erwartet:</h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-golf-gold mr-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              Eine Driving Range (300 m)
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-golf-gold mr-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              10 überdachte Abschlagsplätze
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-golf-gold mr-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              Eine großzügige Pitch- & Chip Area
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-golf-gold mr-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              Zwei Putting Greens
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        <div class="group relative overflow-hidden rounded-lg shadow-lg h-80">
+          <img
+            src="/images/uebungsbereich/latschenkieferabschlag.jpg"
+            alt="Abschlagsplätze"
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+            <div>
+              <h3 class="text-white font-bold text-xl mb-1">Driving Range</h3>
+              <p class="text-gray-200 text-sm">Weitläufig & Modern</p>
+            </div>
+          </div>
+        </div>
+        <div class="group relative overflow-hidden rounded-lg shadow-lg h-80">
+          <img
+            src="/images/uebungsbereich/latschkiefer.jpg"
+            alt="Übungsanlage"
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+            <div>
+              <h3 class="text-white font-bold text-xl mb-1">Pitch & Chip</h3>
+              <p class="text-gray-200 text-sm">Präzision trainieren</p>
+            </div>
+          </div>
+        </div>
+        <div class="group relative overflow-hidden rounded-lg shadow-lg h-80 lg:col-span-1 md:col-span-2">
+          <img
+            src="/images/uebungsbereich/putting_green.jpg"
+            alt="Putting Green"
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+            <div>
+              <h3 class="text-white font-bold text-xl mb-1">Putting Greens</h3>
+              <p class="text-gray-200 text-sm">Perfekte Bedingungen</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info Box -->
+      <div class="bg-white border-t-4 border-golf-green shadow-xl rounded-lg p-8 md:p-12 relative overflow-hidden">
+        <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h3 class="font-serif text-2xl font-bold text-golf-green mb-6">Unkomplizierte Nutzung</h3>
+            <p class="text-gray-700 mb-6 leading-relaxed">
+              Übungsbälle können unabhängig von den Öffnungszeiten des Sekretariats an unserem Ballautomaten gezogen werden.
+            </p>
+            <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+              <div class="bg-golf-gold text-white rounded-full p-2 mt-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 mb-2">Bezahlung</h4>
+                <p class="text-gray-600 text-sm">
+                  Hierfür benötigen Sie <span class="font-bold text-golf-green">1,00 €</span> oder <span class="font-bold text-golf-green">2,00 €</span> Münzen.<br />
+                  Alternativ können Sie auch bequem <span class="font-bold">per Karte</span> bezahlen.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-golf-light rounded-2xl p-8 text-center rotate-1 md:rotate-2 shadow-inner">
+            <p class="font-serif text-xl italic text-golf-green mb-4">
+              "Übung macht den Meister"
+            </p>
+            <p class="text-gray-600">
+              Kommen Sie vorbei und nutzen Sie unsere erstklassigen Trainingsmöglichkeiten, um Ihr Spiel auf das nächste Level zu heben.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>

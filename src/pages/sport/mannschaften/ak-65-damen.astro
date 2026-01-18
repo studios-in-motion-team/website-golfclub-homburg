@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SubNavigation from '../../../components/SubNavigation.astro';
+import MannschaftenSidebar from '../../../components/MannschaftenSidebar.astro';
+
+const sportNavItems = [
+  { label: 'Abteilungen', href: '/sport' },
+  { label: 'Mannschaften', href: '/sport/mannschaften' },
+  { label: 'Jugend', href: '/sport/jugend' },
+  { label: 'Turniere', href: '/sport/turniere' },
+];
+---
+
+<BaseLayout title="AK 65 Damen - Golfclub Homburg Websweiler Hof">
+  <Header slot="header" />
+  
+  <div class="pt-14">
+    <PageHero
+      title="AK 65 Damen"
+      subtitle="Damenmannschaft Altersklasse 65"
+      backgroundImage="/images/header02.webp"
+    />
+
+    <SubNavigation
+      items={sportNavItems}
+      activeLabel="Mannschaften"
+      parentTitle="SPORT"
+    />
+
+    <div class="container mx-auto px-4 py-12 max-w-6xl">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <MannschaftenSidebar activeLabel="AK 65 Damen" />
+        
+        <main class="flex-1">
+          <div class="bg-white rounded-lg shadow-lg p-8">
+            <h2 class="font-serif text-3xl font-bold text-golf-green mb-6">AK 65 Damen</h2>
+            
+            <div class="prose prose-lg max-w-none text-gray-700">
+              <div class="bg-golf-gold/10 border-l-4 border-golf-gold p-6 rounded-r-lg mb-8">
+                <h3 class="font-bold text-lg text-golf-green mb-2">Altersklasse 65 Damen</h3>
+                <p class="text-gray-600 mb-0">
+                  Unsere AK 65 Damenmannschaft – Golf mit Erfahrung und Freude.
+                </p>
+              </div>
+
+              <h3 class="font-serif text-xl font-bold text-golf-green mt-8 mb-4">Aktuelle Saison</h3>
+              <p>
+                Informationen zur aktuellen Saison und den Spielterminen finden Sie in Kürze hier.
+              </p>
+
+              <h3 class="font-serif text-xl font-bold text-golf-green mt-8 mb-4">Captain</h3>
+              <p>
+                Bei Fragen zur AK 65 Damen Mannschaft wenden Sie sich bitte an die 
+                Mannschaftscaptain oder an unser Sekretariat.
+              </p>
+            </div>
+
+            <a
+              href="/kontakt"
+              class="inline-block mt-8 bg-golf-green text-white font-bold py-3 px-8 rounded hover:bg-opacity-90 transition-colors duration-200 uppercase tracking-widest text-sm shadow-md"
+            >
+              Kontakt aufnehmen
+            </a>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</BaseLayout>
