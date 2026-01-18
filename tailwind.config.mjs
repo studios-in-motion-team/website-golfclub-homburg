@@ -8,6 +8,7 @@ export default {
                     green: '#0a2e23',
                     light: '#fdfdfb',
                     gold: '#826732',
+                    'gold-light': '#c5a059',
                     accent: '#2d5a4a',
                 }
             },

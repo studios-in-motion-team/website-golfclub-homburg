@@ -1,0 +1,128 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout title="Impressum - Golfclub Homburg Websweiler Hof">
+    <Header slot="header" />
+
+    <div class="pt-14">
+        <div class="bg-gray-100 text-gray-800 py-20 px-4">
+            <div class="container mx-auto max-w-4xl text-center">
+                <h1 class="font-serif text-5xl font-bold text-golf-green mb-6">
+                    Impressum
+                </h1>
+                <p class="text-xl font-light tracking-wide text-gray-600">
+                    Rechtliche Informationen
+                </p>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 py-16 max-w-4xl">
+            <div class="prose prose-lg max-w-none text-gray-700 space-y-8">
+                <section>
+                    <h2
+                        class="font-serif text-2xl font-bold text-golf-green mb-4"
+                    >
+                        Verantwortlich für den Inhalt der Seiten
+                    </h2>
+                    <p>
+                        <strong>Hofgut Websweiler Golf Resort GmbH</strong><br
+                        />
+                        Römerstraße 94<br />
+                        66424 Homburg/Saar<br />
+                        Deutschland
+                    </p>
+                    <p>
+                        Telefon: 06841 77 776-0<br />
+                        Fax: 06841 77 776-66<br />
+                        E-Mail: <a
+                            href="mailto:info@golfsaar.de"
+                            class="text-golf-gold hover:underline"
+                            >info@golfsaar.de</a
+                        ><br />
+                        Web: <a
+                            href="http://www.golfsaar.de"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-golf-gold hover:underline"
+                            >www.golfsaar.de</a
+                        >
+                    </p>
+                </section>
+
+                <section>
+                    <h2
+                        class="font-serif text-2xl font-bold text-golf-green mb-4"
+                    >
+                        Registereintrag
+                    </h2>
+                    <p>
+                        Amtsgericht Homburg HRB 3277<br />
+                        USt-IdNr. DE 15 77 31 755
+                    </p>
+                </section>
+
+                <section>
+                    <h2
+                        class="font-serif text-2xl font-bold text-golf-green mb-4"
+                    >
+                        Vertretungsberechtigt
+                    </h2>
+                    <p>Geschäftsführer: Martin Adam</p>
+                </section>
+
+                <section>
+                    <h2
+                        class="font-serif text-2xl font-bold text-golf-green mb-4"
+                    >
+                        EU-Streitschlichtung
+                    </h2>
+                    <p>
+                        Die Europäische Kommission stellt eine Plattform zur
+                        Online-Streitbeilegung (OS) bereit:
+                        <a
+                            href="https://ec.europa.eu/consumers/odr/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-golf-gold hover:underline"
+                            >https://ec.europa.eu/consumers/odr/</a
+                        >.<br />
+                        Unsere E-Mail-Adresse finden Sie oben im Impressum.
+                    </p>
+                </section>
+
+                <section>
+                    <h2
+                        class="font-serif text-2xl font-bold text-golf-green mb-4"
+                    >
+                        Verbraucherstreitbeilegung/Universalschlichtungsstelle
+                    </h2>
+                    <p>
+                        Wir sind nicht bereit oder verpflichtet, an
+                        Streitbeilegungsverfahren vor einer
+                        Verbraucherschlichtungsstelle teilzunehmen.
+                    </p>
+                </section>
+
+                <section>
+                    <h2
+                        class="font-serif text-2xl font-bold text-golf-green mb-4"
+                    >
+                        Foto und Bildmaterial
+                    </h2>
+                    <p>
+                        Das Foto und Bildmaterial ist nicht rechtefrei und darf
+                        ohne Genehmigung nicht weiterverwendet werden.
+                        Bildnachweise: Patrick Mertel (Mertel
+                        Veranstaltungstechnik), Wolfgang Klaucke, Hans-Jörg
+                        Lupp.
+                    </p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <Footer slot="footer" />
+</BaseLayout>

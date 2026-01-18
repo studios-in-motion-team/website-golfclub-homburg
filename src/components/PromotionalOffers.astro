@@ -1,0 +1,65 @@
+---
+const offers = [
+    {
+        category: "Indoor-Golf",
+        title: "LOFTGOLF | Premium Indoor Golf",
+        description:
+            "Erlebe Premium Indoor Golf am Golfclub Websweiler Hof. Realistische Simulation, private Atmosphäre und Spaß mit Freunden – 365 Tage im Jahr. Modernste Technik trifft auf absolute Privatsphäre in unseren High-End Simulator Bays.",
+        image: "/images/promotions/indoor-golf.png",
+        link: "https://loftgolf.de/",
+        buttonText: "Online buchen",
+    },
+    {
+        category: "Fußballgolf",
+        title: "Fußballgolf Abenteuer",
+        description:
+            "Erlebe dein persönliches Fußballgolf Abenteuer! Habe Spaß mit Freunden, bleibe fit und genieße die Natur auf unserer Anlage. Melde dich einfach im Sekretariat an, leihe dir kostenfrei Fußball und Scorekarte aus und lege sofort los!",
+        image: "/images/promotions/fussballgolf.png",
+        link: "https://angebote.mitfit.de/?uuid=875d7d29-3bb1-4b78-bc1c-180e00a1b98d&s=1&src=website&type=publiclink",
+        buttonText: "Jetzt informieren",
+    },
+];
+---
+
+<section class="container mx-auto px-4 md:px-8 mb-24">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {
+            offers.map((offer) => (
+                <div class="group bg-golf-gold shadow-md hover:shadow-2xl transition-all duration-500 overflow-hidden flex flex-col">
+                    <div class="relative h-72 overflow-hidden">
+                        <img
+                            src={offer.image}
+                            alt={offer.title}
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-golf-green text-white px-4 py-1 text-xs font-bold uppercase tracking-widest shadow-md">
+                                {offer.category}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="p-8 md:p-10 flex flex-col flex-grow text-white">
+                        <h3 class="text-2xl md:text-3xl font-serif mb-4 leading-tight">
+                            {offer.title}
+                        </h3>
+                        <p class="text-white/90 leading-relaxed mb-8 flex-grow">
+                            {offer.description}
+                        </p>
+                        <div>
+                            <a
+                                href={offer.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="inline-block bg-golf-green text-white px-8 py-3 font-bold uppercase tracking-widest hover:bg-white hover:text-golf-green transition-colors duration-300 shadow-sm"
+                            >
+                                {offer.buttonText}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</section>

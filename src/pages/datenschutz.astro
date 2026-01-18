@@ -1,0 +1,148 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout title="Datenschutz - Golfclub Homburg Websweiler Hof">
+    <Header slot="header" />
+
+    <div class="pt-14">
+        <div class="bg-gray-100 text-gray-800 py-20 px-4">
+            <div class="container mx-auto max-w-4xl text-center">
+                <h1 class="font-serif text-5xl font-bold text-golf-green mb-6">
+                    Datenschutz
+                </h1>
+                <p class="text-xl font-light tracking-wide text-gray-600">
+                    Informationen zum Schutz Ihrer persönlichen Daten
+                </p>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 py-16 max-w-4xl">
+            <div class="prose prose-lg max-w-none text-gray-700 space-y-8">
+                <section>
+                    <h2
+                        class="font-serif text-2xl font-bold text-golf-green mb-4"
+                    >
+                        1. Datenschutz auf einen Blick
+                    </h2>
+                    <h3
+                        class="font-serif text-xl font-bold text-golf-green mb-2"
+                    >
+                        Allgemeine Hinweise
+                    </h3>
+                    <p>
+                        Die folgenden Hinweise geben einen einfachen Überblick
+                        darüber, was mit Ihren personenbezogenen Daten passiert,
+                        wenn Sie diese Website besuchen. Personenbezogene Daten
+                        sind alle Daten, mit denen Sie persönlich identifiziert
+                        werden können.
+                    </p>
+                </section>
+
+                <section>
+                    <h2
+                        class="font-serif text-2xl font-bold text-golf-green mb-4"
+                    >
+                        2. Verantwortliche Stelle
+                    </h2>
+                    <p>
+                        <strong
+                            >Golfclub Homburg/Saar Websweiler Hof e.V.</strong
+                        ><br />
+                        Websweiler Hof<br />
+                        66424 Homburg/Saar<br />
+                        Deutschland
+                    </p>
+                    <p>
+                        Telefon: 06841 77 776-0<br />
+                        E-Mail: <a
+                            href="mailto:info@golfsaar.de"
+                            class="text-golf-gold hover:underline"
+                            >info@golfsaar.de</a
+                        >
+                    </p>
+                </section>
+
+                <section>
+                    <h2
+                        class="font-serif text-2xl font-bold text-golf-green mb-4"
+                    >
+                        3. Datenerfassung auf dieser Website
+                    </h2>
+                    <h3
+                        class="font-serif text-xl font-bold text-golf-green mb-2"
+                    >
+                        Cookies
+                    </h3>
+                    <p>
+                        Unsere Internetseiten verwenden so genannte „Cookies“.
+                        Cookies sind kleine Textdateien und richten auf Ihrem
+                        Endgerät keinen Schaden an. Sie werden entweder
+                        vorübergehend für die Dauer einer Sitzung
+                        (Session-Cookies) oder dauerhaft (permanente Cookies)
+                        auf Ihrem Endgerät gespeichert.
+                    </p>
+                    <h3
+                        class="font-serif text-xl font-bold text-golf-green mb-2"
+                    >
+                        Hosting
+                    </h3>
+                    <p>
+                        Wir hosten die Inhalte unserer Website bei folgendem
+                        Anbieter:<br />
+                        <strong>GKMB GmbH</strong><br />
+                        Lutherstraße 1, 75196 Nöttingen
+                    </p>
+                </section>
+
+                <section>
+                    <h2
+                        class="font-serif text-2xl font-bold text-golf-green mb-4"
+                    >
+                        4. Analyse-Tools und Tools von Drittanbietern
+                    </h2>
+                    <p>
+                        Auf dieser Website werden Dienste von Drittanbietern
+                        eingesetzt, um die Funktionalität zu verbessern und
+                        Inhalte bereitzustellen:
+                    </p>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>
+                            <strong>YouTube:</strong> Zur Einbindung von Videos (erweiterter
+                            Datenschutzmodus).
+                        </li>
+                        <li>
+                            <strong>Google Maps:</strong> Zur Darstellung von Karten.
+                        </li>
+                        <li>
+                            <strong>PC CADDIE://online:</strong> Für Turnieranmeldungen
+                            und Startzeitenreservierungen.
+                        </li>
+                        <li>
+                            <strong>Cloudflare:</strong> Zur Sicherheit und Performance-Optimierung.
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2
+                        class="font-serif text-2xl font-bold text-golf-green mb-4"
+                    >
+                        5. Ihre Rechte
+                    </h2>
+                    <p>
+                        Sie haben jederzeit das Recht, unentgeltlich Auskunft
+                        über Herkunft, Empfänger und Zweck Ihrer gespeicherten
+                        personenbezogenen Daten zu erhalten. Sie haben außerdem
+                        ein Recht, die Berichtigung oder Löschung dieser Daten
+                        zu verlangen.
+                    </p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <Footer slot="footer" />
+</BaseLayout>
