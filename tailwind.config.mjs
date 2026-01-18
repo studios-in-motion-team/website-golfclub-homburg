@@ -7,7 +7,7 @@ export default {
                 golf: {
                     green: '#0a2e23',
                     light: '#fdfdfb',
-                    gold: '#b08d44',
+                    gold: '#947639',
                     accent: '#2d5a4a',
                 }
             },

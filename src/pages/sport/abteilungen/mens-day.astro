@@ -4,13 +4,20 @@ import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
 import PageHero from '../../../components/PageHero.astro';
 import SubNavigation from '../../../components/SubNavigation.astro';
-import AbteilungenSidebar from '../../../components/AbteilungenSidebar.astro';
+import SidebarLayout from '../../../components/SidebarLayout.astro';
 
 const sportNavItems = [
   { label: 'Abteilungen', href: '/sport' },
   { label: 'Mannschaften', href: '/sport/mannschaften' },
   { label: 'Jugend', href: '/sport/jugend' },
   { label: 'Turniere', href: '/sport/turniere' },
+];
+
+const sidebarItems = [
+  { label: 'Abteilungen Übersicht', href: '/sport' },
+  { label: 'Ladies Day', href: '/sport/abteilungen/ladies-day' },
+  { label: 'Mens Day', href: '/sport/abteilungen/mens-day' },
+  { label: 'Seniorentag', href: '/sport/abteilungen/seniorentag' },
 ];
 ---
 
@@ -20,7 +27,7 @@ const sportNavItems = [
   <div class="pt-14">
     <PageHero
       title="Mens Day"
-      subtitle="Der Herrentag am Websweiler Hof"
+      subtitle="Tradition, Sport und Geselligkeit"
       backgroundImage="/images/header02.webp"
     />
 
@@ -30,64 +37,105 @@ const sportNavItems = [
       parentTitle="SPORT"
     />
 
-    <div class="container mx-auto px-4 py-12 max-w-6xl">
-      <div class="flex flex-col lg:flex-row gap-8">
-        <AbteilungenSidebar activeLabel="Mens Day" />
+    <SidebarLayout sidebarTitle="ABTEILUNGEN" sidebarItems={sidebarItems} currentPath="/sport/abteilungen/mens-day">
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <h2 class="font-serif text-3xl font-bold text-golf-green mb-6">Mens Day am Websweiler Hof</h2>
         
-        <main class="flex-1">
-          <div class="bg-white rounded-lg shadow-lg p-8">
-            <h2 class="font-serif text-3xl font-bold text-golf-green mb-6">Mens Day</h2>
-            
-            <div class="prose prose-lg max-w-none text-gray-700">
-              <p class="mb-6">
-                Der Mens Day bietet allen Herren des Clubs die Gelegenheit, in lockerer Atmosphäre 
-                gemeinsam zu spielen und sich auszutauschen.
-              </p>
-              
-              <div class="bg-golf-gold/10 border-l-4 border-golf-gold p-6 rounded-r-lg mb-8">
-                <h3 class="font-bold text-lg text-golf-green mb-2">Jeden Mittwoch</h3>
-                <p class="text-gray-600 mb-0">
-                  Treffpunkt um 14:00 Uhr am Clubhaus. Anmeldung bis Dienstag 18:00 Uhr im Sekretariat.
-                </p>
-              </div>
+        <p class="mb-6">
+          Liebe Men´s Day Mitglieder, liebe Golfer vom Websweiler Hof,
+        </p>
+        
+        <p class="mb-6">
+          unser Mens Day ist ein lebendiger Teil des Clublebens. Wir sind Männer aller Alters- und 
+          Handicap-Klassen, die Freude am sportlichen Wettkampf und dem anschließenden Austausch haben.
+        </p>
 
-              <h3 class="font-serif text-xl font-bold text-golf-green mt-8 mb-4">Das erwartet Sie</h3>
-              <ul class="space-y-2 mb-6">
-                <li class="flex items-start">
-                  <span class="text-golf-gold mr-2">●</span>
-                  Gesellige Runde unter Golfkameraden
-                </li>
-                <li class="flex items-start">
-                  <span class="text-golf-gold mr-2">●</span>
-                  Verschiedene Spielformate und freundschaftliche Wettbewerbe
-                </li>
-                <li class="flex items-start">
-                  <span class="text-golf-gold mr-2">●</span>
-                  Gemütliches Beisammensein im "19. Loch" im Anschluss
-                </li>
-                <li class="flex items-start">
-                  <span class="text-golf-gold mr-2">●</span>
-                  Netzwerken und Erfahrungsaustausch
-                </li>
-              </ul>
+        <p class="mb-6">
+          Die gemeinsamen Golfrunden bieten sowohl Handicap-relevante Turniere als auch interessante 
+          Spielformen, bei denen der Spaß im Vordergrund steht. Im Anschluss finden wir uns zu einem 
+          gemütlichen Beisammensein in unserer Clubgastronomie zusammen.
+        </p>
 
-              <h3 class="font-serif text-xl font-bold text-golf-green mt-8 mb-4">Ansprechpartner</h3>
-              <p>
-                Bei Fragen zum Mens Day wenden Sie sich bitte an unser Sekretariat oder 
-                direkt an den Herren Captain.
-              </p>
-            </div>
-
-            <a
-              href="/kontakt"
-              class="inline-block mt-8 bg-golf-green text-white font-bold py-3 px-8 rounded hover:bg-opacity-90 transition-colors duration-200 uppercase tracking-widest text-sm shadow-md"
-            >
-              Jetzt anmelden
-            </a>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div class="bg-golf-gold/10 border-l-4 border-golf-gold p-6 rounded-r-lg">
+            <h3 class="font-bold text-lg text-golf-green mb-2">Termine & Anmeldung</h3>
+            <p class="text-sm text-gray-600 mb-0">
+              Informationen zu den Spieltagen und die Anmeldung finden Sie regelmäßig im PCC oder am Infobrett im Clubhaus.
+            </p>
           </div>
-        </main>
+          <div class="bg-golf-green/5 border-l-4 border-golf-green p-6 rounded-r-lg">
+            <h3 class="font-bold text-lg text-golf-green mb-2">Kontakt</h3>
+            <p class="text-sm text-gray-600 mb-0">
+              Haben Sie Fragen oder Anregungen? Wenden Sie sich gerne direkt an unseren Captain oder das Sekretariat.
+            </p>
+          </div>
+        </div>
+
+        <h3 class="font-serif text-xl font-bold text-golf-green mt-8 mb-4">Ihre Ansprechpartner</h3>
+        <div class="bg-white border border-gray-200 rounded-lg p-6 flex flex-col md:flex-row items-center gap-6 shadow-sm mb-8">
+          <div class="w-32 h-32 rounded-full overflow-hidden flex-shrink-0 border-4 border-golf-gold/20">
+            <img 
+              src="/images/abteilungen/andreas-kirsch.jpg" 
+              alt="Andreas Kirsch" 
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="flex-1 text-center md:text-left">
+            <h4 class="font-bold text-lg text-golf-green">Andreas Kirsch</h4>
+            <p class="text-gray-600 mb-2">Mens-Captain (kommissarisch)</p>
+            <div class="flex flex-col space-y-1 items-center md:items-start">
+              <a href="tel:+491741602536" class="flex items-center text-golf-green hover:underline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                0174 1602536
+              </a>
+              <a href="mailto:andreas.kirsch@kabelmail.de" class="flex items-center text-golf-green hover:underline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                andreas.kirsch@kabelmail.de
+              </a>
+            </div>
+            <p class="text-xs text-gray-400 mt-4 italic">Unterstützt durch Steffen Oetzel.</p>
+          </div>
+        </div>
+
+        <h3 class="font-serif text-xl font-bold text-golf-green mt-8 mb-4">Impressionen & Links</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a 
+            href="/sport/turniere" 
+            class="flex items-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:bg-golf-gold/5 hover:border-golf-gold transition-colors group"
+          >
+            <div class="w-10 h-10 bg-golf-green/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-golf-green/20 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-golf-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <span class="block font-bold text-gray-900">Turnierkalender</span>
+              <span class="text-xs text-gray-500 uppercase">Aktuelle Termine</span>
+            </div>
+          </a>
+
+          <a 
+            href="https://www.facebook.com/GCHomburg" 
+            target="_blank"
+            class="flex items-center p-4 bg-gray-50 rounded-lg border border-gray-200 hover:bg-blue-50 hover:border-blue-300 transition-colors group"
+          >
+            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-200 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </div>
+            <div>
+              <span class="block font-bold text-gray-900">GC Homburg Facebook</span>
+              <span class="text-xs text-gray-500 uppercase">Social Media</span>
+            </div>
+          </a>
+        </div>
       </div>
-    </div>
+    </SidebarLayout>
   </div>
 
   <Footer slot="footer" />
