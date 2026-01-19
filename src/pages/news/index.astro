@@ -4,11 +4,15 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import PageHero from "../../components/PageHero.astro";
 import ContentSection from "../../components/ContentSection.astro";
+import { fetchFreedaNews } from "../../utils/freeda-api-client.js";
+import fs from 'fs';
+import fsp from 'fs/promises';
+import path from 'path';
 
 const title = "News & Aktuelles";
 const description = "Aktuelle Nachrichten und Neuigkeiten vom Golfclub Homburg Websweiler Hof";
 
-// Placeholder für zukünftige API-Integration
+// Placeholder für Fallback falls API ausfällt
 const placeholderNews = [
   {
     uuid: "sample-1",
@@ -48,8 +52,35 @@ const placeholderNews = [
   }
 ];
 
-const highlightedNews = placeholderNews.filter(item => item.isHighlighted);
-const regularNews = placeholderNews.filter(item => !item.isHighlighted);
+// Versuche Freeda API zu laden, fallback auf placeholderNews
+let fetchedNews = [];
+const cachePath = path.resolve(process.cwd(), 'content/freeda-news.json');
+const forceLive = String(process.env.VITE_FREEDA_FORCE_LIVE || '').toLowerCase();
+const shouldForceLive = forceLive === '1' || forceLive === 'true' || forceLive === 'yes';
+
+try {
+  // Wenn Force-Live gesetzt ist, überspringe Cache (nur für Dev/Debug)
+  if (!shouldForceLive && fs.existsSync(cachePath)) {
+    const raw = await fsp.readFile(cachePath, 'utf-8');
+    fetchedNews = JSON.parse(raw);
+  } else {
+    // Kein Cache oder Force-Live: versuche Live-Fetch (Dev oder CI ohne prebuild)
+    fetchedNews = await fetchFreedaNews({ onlyActive: true });
+  }
+} catch (err) {
+  // Fallbacks: bei Fehlern zuerst Live-Fetch, dann Platzhalter
+  console.error('Failed to load cached news or fetch live:', err?.message || err);
+  try {
+    fetchedNews = await fetchFreedaNews({ onlyActive: true });
+  } catch (err2) {
+    console.error('Freeda API fetch failed, using placeholder news:', err2?.message || err2);
+    fetchedNews = placeholderNews;
+  }
+}
+
+const newsData = (Array.isArray(fetchedNews) && fetchedNews.length > 0) ? fetchedNews : placeholderNews;
+const highlightedNews = newsData.filter(item => item.isHighlighted);
+const regularNews = newsData.filter(item => !item.isHighlighted);
 ---
 
 <BaseLayout title={title} description={description}>

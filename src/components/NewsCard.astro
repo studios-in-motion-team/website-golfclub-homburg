@@ -1,0 +1,30 @@
+---
+interface Props {
+  article: any;
+}
+const { article } = Astro.props as Props;
+---
+
+<article class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform hover:scale-105">
+  <div class="relative">
+    <img src={article.media?.url || '/images/sample/golf-tournament.jpg'} alt={article.media?.name || article.name} class="w-full h-48 object-cover" loading="lazy" />
+    <div class="absolute top-4 left-4">
+      <time class="bg-white bg-opacity-90 text-gray-700 text-sm px-2 py-1 rounded font-medium">{new Date(article.created).toLocaleDateString('de-DE')}</time>
+    </div>
+  </div>
+  <div class="p-6">
+    <h3 class="text-xl font-serif text-gray-900 mb-3">
+      <a href={`/news/${article.slug}`} class="hover:text-emerald-700 transition-colors">{article.name}</a>
+    </h3>
+    {article.textShort && /<\/?[a-z][\s\S]*>/i.test(article.textShort) ? (
+      <div class="text-gray-600 mb-4 leading-relaxed" set:html={article.textShort} />
+    ) : (
+      <p class="text-gray-600 mb-4 leading-relaxed">{article.textShort}</p>
+    )}
+    <a href={`/news/${article.slug}`} class="inline-flex items-center text-emerald-700 hover:text-emerald-900 font-medium transition-colors">Mehr erfahren
+      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </a>
+  </div>
+</article>

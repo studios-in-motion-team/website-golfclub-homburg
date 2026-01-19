@@ -1,0 +1,43 @@
+---
+interface Props {
+  article: any;
+}
+
+import { marked } from 'marked';
+import sanitizeHtml from 'sanitize-html';
+import { getSanitizeOptions } from '../config/sanitize-config.js';
+
+const { article } = Astro.props as Props;
+
+// Determine whether to sanitize HTML. Default: true, can be disabled with
+// FREEDA_SANITIZE_HTML=false (server env).
+const sanitizeEnabled = process.env.FREEDA_SANITIZE_HTML !== 'false' && process.env.VITE_FREEDA_SANITIZE_HTML !== 'false';
+
+function maybeSanitize(html) {
+  if (!sanitizeEnabled) return html;
+  const opts = getSanitizeOptions('default', sanitizeHtml);
+  return sanitizeHtml(html, opts);
+}
+
+let renderedHtml = null;
+if (article?.textHtml) {
+  renderedHtml = maybeSanitize(article.textHtml);
+} else if (article?.textMd) {
+  const raw = marked.parse(article.textMd || '');
+  renderedHtml = maybeSanitize(raw);
+}
+
+---
+
+<article class="prose lg:prose-xl mx-auto">
+  {renderedHtml ? (
+    <div set:html={renderedHtml} />
+  ) : (
+    <p>{article?.textShort}</p>
+  )}
+</article>
+
+<style is:global>
+  /* Ensure images inside article are responsive */
+  .prose img { max-width: 100%; height: auto; }
+</style>

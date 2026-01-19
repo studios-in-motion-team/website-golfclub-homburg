@@ -22,3 +22,8 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# generated prebuild artifacts
+content/freeda-news.json
+public/sitemap.xml
+public/robots.txt
