@@ -1,0 +1,204 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+import ContentSection from "../../components/ContentSection.astro";
+
+const title = "News & Aktuelles";
+const description = "Aktuelle Nachrichten und Neuigkeiten vom Golfclub Homburg Websweiler Hof";
+
+// Placeholder für zukünftige API-Integration
+const placeholderNews = [
+  {
+    uuid: "sample-1",
+    name: "Saisonstart 2026 - Neue Platzregeln",
+    textShort: "Ab März gelten neue Platzregeln und die Saison 2026 kann beginnen. Alle wichtigen Informationen für Mitglieder.",
+    created: "2026-01-15",
+    slug: "saisonstart-2026-neue-platzregeln",
+    isHighlighted: 1,
+    media: {
+      url: "/images/bahnen/bahn1.jpg",
+      name: "Golfplatz im Frühling"
+    }
+  },
+  {
+    uuid: "sample-2", 
+    name: "Erfolgreiche Winterarbeiten abgeschlossen",
+    textShort: "Die umfangreichen Pflegemaßnahmen während der Wintermonate sind abgeschlossen. Der Platz ist bereit für die neue Saison.",
+    created: "2026-01-10",
+    slug: "winterarbeiten-abgeschlossen",
+    isHighlighted: 0,
+    media: {
+      url: "/images/bahnen/bahn2.jpg", 
+      name: "Platzpflege"
+    }
+  },
+  {
+    uuid: "sample-3",
+    name: "Neue Turnierserie angekündigt",
+    textShort: "Freuen Sie sich auf spannende Turniere in der kommenden Saison. Anmeldungen sind ab sofort möglich.",
+    created: "2026-01-05",
+    slug: "neue-turnierserie-2026",
+    isHighlighted: 0,
+    media: {
+      url: "/images/sample/golf-tournament.jpg",
+      name: "Golf Turnier"
+    }
+  }
+];
+
+const highlightedNews = placeholderNews.filter(item => item.isHighlighted);
+const regularNews = placeholderNews.filter(item => !item.isHighlighted);
+---
+
+<BaseLayout title={title} description={description}>
+  <Header slot="header" />
+  
+  <PageHero 
+    title={title}
+    subtitle="Bleiben Sie informiert über alle Neuigkeiten vom Websweiler Hof"
+    backgroundImage="/images/bahnen/bahn3.jpg"
+  />
+
+  <main class="container mx-auto px-4 py-16 max-w-6xl">
+    
+    <!-- Hervorgehobene News -->
+    {highlightedNews.length > 0 && (
+      <section class="mb-16">
+        <h2 class="text-3xl font-serif text-emerald-800 mb-8">Aktuelle Highlights</h2>
+        <div class="grid gap-8 lg:grid-cols-1">
+          {highlightedNews.map((article) => (
+            <article class="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div class="lg:flex">
+                <div class="lg:w-1/2">
+                  <img 
+                    src={article.media.url} 
+                    alt={article.media.name}
+                    class="w-full h-64 lg:h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="lg:w-1/2 p-8">
+                  <div class="flex items-center mb-4">
+                    <span class="inline-block bg-emerald-100 text-emerald-800 text-sm px-3 py-1 rounded-full font-medium">
+                      Highlight
+                    </span>
+                    <time class="text-gray-500 text-sm ml-4">
+                      {new Date(article.created).toLocaleDateString('de-DE')}
+                    </time>
+                  </div>
+                  <h3 class="text-2xl font-serif text-gray-900 mb-4">
+                    <a href={`/news/${article.slug}`} class="hover:text-emerald-700 transition-colors">
+                      {article.name}
+                    </a>
+                  </h3>
+                  <p class="text-gray-600 mb-6 leading-relaxed">
+                    {article.textShort}
+                  </p>
+                  <a 
+                    href={`/news/${article.slug}`}
+                    class="inline-flex items-center text-emerald-700 hover:text-emerald-900 font-medium transition-colors"
+                  >
+                    Weiterlesen
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Weitere News -->
+    <section>
+      <h2 class="text-3xl font-serif text-emerald-800 mb-8">Weitere Nachrichten</h2>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {regularNews.map((article) => (
+          <article class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform hover:scale-105">
+            <div class="relative">
+              <img 
+                src={article.media.url} 
+                alt={article.media.name}
+                class="w-full h-48 object-cover"
+                loading="lazy"
+              />
+              <div class="absolute top-4 left-4">
+                <time class="bg-white bg-opacity-90 text-gray-700 text-sm px-2 py-1 rounded font-medium">
+                  {new Date(article.created).toLocaleDateString('de-DE')}
+                </time>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-serif text-gray-900 mb-3">
+                <a href={`/news/${article.slug}`} class="hover:text-emerald-700 transition-colors">
+                  {article.name}
+                </a>
+              </h3>
+              <p class="text-gray-600 mb-4 leading-relaxed">
+                {article.textShort}
+              </p>
+              <a 
+                href={`/news/${article.slug}`}
+                class="inline-flex items-center text-emerald-700 hover:text-emerald-900 font-medium transition-colors"
+              >
+                Mehr erfahren
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Call-to-Action für Newsletter -->
+    <section class="mt-16 bg-emerald-50 rounded-lg p-8 text-center">
+      <h2 class="text-2xl font-serif text-emerald-800 mb-4">
+        Verpassen Sie keine Neuigkeiten!
+      </h2>
+      <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+        Abonnieren Sie unseren Newsletter und erhalten Sie alle wichtigen Informationen 
+        direkt in Ihr E-Mail-Postfach.
+      </p>
+      <a 
+        href="/club/newsletter" 
+        class="inline-block bg-emerald-700 text-white px-8 py-3 rounded-lg hover:bg-emerald-800 transition-colors font-medium"
+      >
+        Newsletter abonnieren
+      </a>
+    </section>
+
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  article {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  article:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  h2 {
+    position: relative;
+  }
+  
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #059669, #10b981);
+    border-radius: 2px;
+  }
+</style>
