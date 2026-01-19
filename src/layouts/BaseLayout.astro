@@ -4,14 +4,20 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Erholen, Golfspielen und Wohlfühlen am Websweiler Hof" } = Astro.props;
+const {
+  title,
+  description = "Erholen, Golfspielen und Wohlfühlen am Websweiler Hof",
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link
@@ -19,14 +25,20 @@ const { title, description = "Erholen, Golfspielen und Wohlfühlen am Websweiler
       rel="stylesheet"
     />
     <title>{title}</title>
+    <slot name="head" />
     <style is:global>
       body {
-        font-family: 'Lato', sans-serif;
+        font-family: "Lato", sans-serif;
         background-color: #f3f4f1;
         color: #1f2937;
       }
-      h1, h2, h3, h4, h5, h6 {
-        font-family: 'Playfair Display', serif;
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Playfair Display", serif;
       }
       /* Hide scrollbar for SubNavigation */
       .scroller-hide::-webkit-scrollbar {
