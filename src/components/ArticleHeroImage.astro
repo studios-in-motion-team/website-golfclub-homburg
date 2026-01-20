@@ -6,11 +6,11 @@ import { Image } from 'astro:assets';
 const freedaImages = import.meta.glob('../assets/freedaimg_*', { eager: true });
 
 // Helper um Asset-Import zu finden
-function getAssetImport(url) {
+function getAssetImport(url: string | undefined): any {
   if (!url || !url.startsWith('~/assets/freedaimg_')) return null;
   const filename = url.replace('~/assets/', '');
   const importKey = `../assets/${filename}`;
-  return freedaImages[importKey]?.default || null;
+  return (freedaImages[importKey] as any)?.default || null;
 }
 ---
 
