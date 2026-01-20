@@ -2,29 +2,35 @@
 interface Props {
   title: string;
   subtitle?: string;
-  variant?: 'main' | 'sub';
+  variant?: "main" | "sub";
   backgroundImage?: string;
 }
 
-const { title, subtitle, variant = 'main', backgroundImage } = Astro.props;
-const paddingClass = variant === 'sub' ? 'py-12' : 'py-20';
+const { title, subtitle, variant = "main", backgroundImage } = Astro.props;
+const paddingClass = variant === "sub" ? "py-12" : "py-20";
 ---
 
 <div
   class={`relative bg-golf-green text-white ${paddingClass} px-4 overflow-hidden`}
-  style={backgroundImage ? `background-image: url(${backgroundImage}); background-size: cover; background-position: center;` : ''}
+  style={backgroundImage
+    ? `background-image: url(${backgroundImage}); background-size: cover; background-position: center;`
+    : ""}
 >
-  {/* Optional Overlay for better text readability when background image is present */}
-  {backgroundImage && (
-    <div class="absolute inset-0 bg-golf-green/60 z-0"></div>
-  )}
+  {
+    /* Optional Overlay for better text readability when background image is present */
+  }
+  {backgroundImage && <div class="absolute inset-0 bg-golf-green/60 z-0" />}
 
   <div class="container mx-auto max-w-4xl text-center relative z-10">
-    <h1 class="font-serif text-3xl md:text-5xl font-bold mb-4 md:mb-6">{title}</h1>
-    {subtitle && (
-      <p class="text-base md:text-xl font-light tracking-wide opacity-90">
-        {subtitle}
-      </p>
-    )}
+    <h1 class="font-sans text-3xl md:text-5xl font-bold mb-4 md:mb-6">
+      {title}
+    </h1>
+    {
+      subtitle && (
+        <p class="text-base md:text-xl font-light tracking-wide opacity-90">
+          {subtitle}
+        </p>
+      )
+    }
   </div>
 </div>

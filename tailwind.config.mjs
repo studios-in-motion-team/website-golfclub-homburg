@@ -13,7 +13,7 @@ export default {
                 }
             },
             fontFamily: {
-                serif: ['"Playfair Display"', 'serif'],
+                serif: ['"Lato"', 'sans-serif'],
                 sans: ['"Lato"', 'sans-serif'],
             }
         }
