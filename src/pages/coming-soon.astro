@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PageHero from "../components/PageHero.astro";
+---
+
+<BaseLayout
+    title="Demnächst verfügbar - Golfclub Homburg Websweiler Hof"
+>
+    <Header slot="header" />
+
+    <div class="pt-14">
+        <PageHero
+            title="In Arbeit"
+            subtitle="Wir gestalten diesen Bereich aktuell neu für Sie."
+            backgroundImage="/images/header01.webp"
+        />
+
+        <div class="container mx-auto px-4 py-24 text-center">
+            <div class="max-w-2xl mx-auto">
+                <div class="mb-8 flex justify-center">
+                    <div
+                        class="w-24 h-24 rounded-full bg-golf-gold/10 flex items-center justify-center text-golf-gold"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-12 w-12"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                            ></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <h2
+                    class="font-serif text-4xl md:text-5xl font-bold text-golf-green mb-6"
+                >
+                    Demnächst verfügbar
+                </h2>
+
+                <p
+                    class="text-xl text-gray-600 mb-10 leading-relaxed"
+                >
+                    Herzlich Willkommen! Wir arbeiten aktuell mit
+                    Hochdruck an der Fertigstellung dieser Sektion, um
+                    Ihnen ein erstklassiges Online-Erlebnis zu bieten.
+                    Schauen Sie in Kürze wieder vorbei – wir freuen
+                    uns darauf, Ihnen bald mehr zu zeigen!
+                </p>
+
+                <div
+                    class="flex flex-col sm:flex-row justify-center gap-4"
+                >
+                    <a
+                        href="/"
+                        class="px-8 py-4 bg-golf-green text-white font-bold uppercase tracking-widest hover:bg-golf-gold transition-colors shadow-lg"
+                    >
+                        Zur Startseite
+                    </a>
+                    <a
+                        href="/club"
+                        class="px-8 py-4 bg-white text-golf-green border-2 border-golf-green font-bold uppercase tracking-widest hover:bg-golf-green hover:text-white transition-all shadow-lg"
+                    >
+                        Der Club
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <Footer slot="footer" />
+</BaseLayout>
