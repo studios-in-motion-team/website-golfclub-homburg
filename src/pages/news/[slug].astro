@@ -7,12 +7,12 @@ import ArticleContent from "../../components/ArticleContent.astro";
 import ArticleHeroImage from "../../components/ArticleHeroImage.astro";
 import { fetchFreedaNews } from "../../utils/freeda-api-client.js";
 import { Image } from 'astro:assets';
-import fs from 'fs';
-import fsp from 'fs/promises';
-import path from 'path';
+import * as fs from 'fs';
+import { promises as fsp } from 'fs';
+import * as path from 'path';
 import sizeOf from 'image-size';
 
-function ensureLocalImageSizes(items) {
+function ensureLocalImageSizes(items: any[]) {
   if (!Array.isArray(items)) return;
   for (const it of items) {
     try {
@@ -84,7 +84,7 @@ export async function getStaticPaths() {
     combined.forEach((it) => bySlug.set(it.slug, it));
     return Array.from(bySlug.values()).map((item) => ({ params: { slug: item.slug }, props: { article: item } }));
   } catch (err) {
-    console.error('getStaticPaths: Failed to read cache or fetch live, returning placeholders only', err?.message || err);
+    console.error('getStaticPaths: Failed to read cache or fetch live, returning placeholders only', (err as Error)?.message || err);
     return placeholderNews.map((item) => ({ params: { slug: item.slug }, props: { article: item } }));
   }
 }
@@ -103,14 +103,14 @@ if (!article) {
       const raw = await fsp.readFile(cachePath, 'utf-8');
       const items = JSON.parse(raw);
       try { ensureLocalImageSizes(items); } catch (e) {}
-      article = items.find((i) => i.slug === slug) || null;
+      article = items.find((i: any) => i.slug === slug) || null;
     } else {
       const items = await fetchFreedaNews({ onlyActive: true });
       try { ensureLocalImageSizes(items); } catch (e) {}
-      article = items.find((i) => i.slug === slug) || null;
+      article = items.find((i: any) => i.slug === slug) || null;
     }
   } catch (err) {
-    console.error('Article fetch fallback failed', err?.message || err);
+    console.error('Article fetch fallback failed', (err as Error)?.message || err);
     article = null;
   }
 }
