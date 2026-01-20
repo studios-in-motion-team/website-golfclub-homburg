@@ -1,4 +1,17 @@
 ---
+import { Image } from 'astro:assets';
+
+// Glob import für alle freedaimg_* Dateien
+const freedaImages = import.meta.glob('../assets/freedaimg_*', { eager: true });
+
+// Helper um Asset-Import zu finden
+function getAssetImport(url) {
+  if (!url || !url.startsWith('~/assets/freedaimg_')) return null;
+  const filename = url.replace('~/assets/', '');
+  const importKey = `../assets/${filename}`;
+  return freedaImages[importKey]?.default || null;
+}
+
 interface NewsItem {
   date: string;
   category: string;
@@ -51,11 +64,35 @@ const newsItems: NewsItem[] = [
       {newsItems.map((item) => (
         <a href={item.link} class="group cursor-pointer">
           <div class="overflow-hidden mb-4 rounded-sm shadow-md">
-            <img
-              src={item.image}
-              alt={item.title}
-              class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
-            />
+            {item.image.startsWith('~/assets/freedaimg_') ? (
+              (() => {
+                const assetImport = getAssetImport(item.image);
+                return assetImport ? (
+                  <Image 
+                    src={assetImport} 
+                    alt={item.title}
+                    class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    format="webp"
+                    widths={[400, 800]}
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    quality={80}
+                    inferSize={true}
+                  />
+                ) : (
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  />
+                );
+              })()
+            ) : (
+              <img
+                src={item.image}
+                alt={item.title}
+                class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
+              />
+            )}
           </div>
           <div class="flex items-center space-x-4 mb-2 text-xs uppercase tracking-wider text-gray-500">
             <span class="text-golf-gold font-bold">{item.category}</span>

@@ -27,3 +27,7 @@ pnpm-debug.log*
 content/freeda-news.json
 public/sitemap.xml
 public/robots.txt
+public/uploads/freeda/
+
+# generated freeda assets (ignored to avoid versioning downloaded images)
+src/assets/freedaimg_*

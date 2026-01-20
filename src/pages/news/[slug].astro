@@ -4,7 +4,41 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import PageHero from "../../components/PageHero.astro";
 import ArticleContent from "../../components/ArticleContent.astro";
+import ArticleHeroImage from "../../components/ArticleHeroImage.astro";
 import { fetchFreedaNews } from "../../utils/freeda-api-client.js";
+import { Image } from 'astro:assets';
+import fs from 'fs';
+import fsp from 'fs/promises';
+import path from 'path';
+import sizeOf from 'image-size';
+
+function ensureLocalImageSizes(items) {
+  if (!Array.isArray(items)) return;
+  for (const it of items) {
+    try {
+      const m = it?.media?.url;
+      if (m && typeof m === 'string' && m.startsWith('~/assets/freedaimg_') && (!it.media?.width || !it.media?.height)) {
+        const local = path.resolve(process.cwd(), 'src/assets', m.replace(/^~\/assets\//, ''));
+        if (fs.existsSync(local)) {
+          try {
+            const d = sizeOf(local);
+            if (d?.width && d?.height) {
+              if (!it.media) it.media = {};
+              it.media.width = d.width;
+              it.media.height = d.height;
+            }
+          } catch (e) {
+            // ignore
+          }
+        }
+      }
+    } catch (e) {
+      // ignore per-item failures
+    }
+  }
+}
+
+// NOTE: Dev-live bypass handled in index.astro; getStaticPaths uses cache when available.
 
 export async function getStaticPaths() {
   // Always include local placeholders to ensure routes exist in dev
@@ -31,12 +65,12 @@ export async function getStaticPaths() {
 
   // Prüfe, ob ein prebuild Cache existiert und verwende diesen bevorzugt
   const cachePath = path.resolve(process.cwd(), 'content/freeda-news.json');
-  const forceLive = String(process.env.VITE_FREEDA_FORCE_LIVE || '').toLowerCase();
-  const shouldForceLive = forceLive === '1' || forceLive === 'true' || forceLive === 'yes';
   try {
-    if (!shouldForceLive && fs.existsSync(cachePath)) {
+    if (fs.existsSync(cachePath)) {
       const raw = await fsp.readFile(cachePath, 'utf-8');
       const items = JSON.parse(raw);
+      // Make sure dimensions are present for local uploads
+      try { ensureLocalImageSizes(items); } catch (e) {}
       const combined = [...placeholderNews, ...items];
       const bySlug = new Map();
       combined.forEach((it) => bySlug.set(it.slug, it));
@@ -44,6 +78,7 @@ export async function getStaticPaths() {
     }
 
     const items = await fetchFreedaNews({ onlyActive: true });
+    try { ensureLocalImageSizes(items); } catch (e) {}
     const combined = [...placeholderNews, ...items];
     const bySlug = new Map();
     combined.forEach((it) => bySlug.set(it.slug, it));
@@ -54,24 +89,24 @@ export async function getStaticPaths() {
   }
 }
 
+
 // Falls die Seite während der Laufzeit ohne props gerendert wird,
 // versuchen wir anhand des Slugs das passende Item zu laden.
 const slug = Astro.params.slug;
-import fs from 'fs';
-import fsp from 'fs/promises';
-import path from 'path';
 
 let article = Astro.props?.article ?? null;
 
 if (!article) {
   const cachePath = path.resolve(process.cwd(), 'content/freeda-news.json');
   try {
-    if (!shouldForceLive && fs.existsSync(cachePath)) {
+    if (fs.existsSync(cachePath)) {
       const raw = await fsp.readFile(cachePath, 'utf-8');
       const items = JSON.parse(raw);
+      try { ensureLocalImageSizes(items); } catch (e) {}
       article = items.find((i) => i.slug === slug) || null;
     } else {
       const items = await fetchFreedaNews({ onlyActive: true });
+      try { ensureLocalImageSizes(items); } catch (e) {}
       article = items.find((i) => i.slug === slug) || null;
     }
   } catch (err) {
@@ -93,6 +128,7 @@ if (!article) {
     />
 
     <main class="container mx-auto px-4 py-12 max-w-3xl">
+      <ArticleHeroImage media={article.media} />
       <ArticleContent article={article} />
     </main>
 

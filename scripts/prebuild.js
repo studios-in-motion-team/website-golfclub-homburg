@@ -4,6 +4,80 @@ import fs from "fs/promises";
 import path from "path";
 import { fetchFreedaNews } from "../src/utils/freeda-api-client.js";
 import fsSync from "fs";
+import crypto from "node:crypto";
+import { pipeline } from "node:stream/promises";
+import sizeOf from "image-size";
+
+async function downloadExternalImages(items) {
+  const outDir = path.resolve(process.cwd(), "src/assets");
+  await fs.mkdir(outDir, { recursive: true });
+
+  for (const item of items) {
+    const url = item.media?.url;
+    if (!url) continue;
+
+    try {
+      let outPath = null;
+
+      // If remote, download to outDir and rewrite URL
+      if (/^https?:\/\//i.test(url)) {
+        const hash = crypto
+          .createHash("sha1")
+          .update(url)
+          .digest("hex")
+          .slice(0, 16);
+        const ext = path.extname(new URL(url).pathname) || ".jpg";
+        const filename = `freedaimg_${hash}${ext}`;
+        outPath = path.join(outDir, filename);
+
+        if (!fsSync.existsSync(outPath)) {
+          const res = await fetch(url);
+          if (!res.ok) {
+            console.warn(`Failed to download ${url}: ${res.status}`);
+          } else {
+            const dest = await fs.open(outPath, "w");
+            await pipeline(res.body, dest.createWriteStream());
+            await dest.close();
+            console.log(`downloaded ${url} -> ${outPath}`);
+          }
+        }
+
+        item.media.url = `~/assets/${filename}`;
+      }
+
+      // If the media URL already points to assets, compute local path
+      if (item.media.url && item.media.url.startsWith("~/assets/freedaimg_")) {
+        const localPath = path.resolve(
+          process.cwd(),
+          "src/assets",
+          item.media.url.replace(/^~\/assets\//, ""),
+        );
+        if (fsSync.existsSync(localPath)) outPath = localPath;
+      }
+
+      // If we have a local file, measure dimensions and store them
+      if (outPath && fsSync.existsSync(outPath)) {
+        try {
+          const buffer = fsSync.readFileSync(outPath);
+          const dims = sizeOf(buffer);
+          if (!item.media) item.media = {};
+          if (dims && dims.width && dims.height) {
+            item.media.width = dims.width;
+            item.media.height = dims.height;
+          }
+        } catch (err) {
+          // not fatal
+        }
+      }
+    } catch (err) {
+      console.warn(
+        "Error downloading or sizing media",
+        url,
+        err?.message || err,
+      );
+    }
+  }
+}
 
 // Helper: map src/pages file path to site URL path
 function pagePathToUrl(filePath) {
@@ -63,6 +137,9 @@ async function collectStaticPages() {
 async function main() {
   try {
     const items = await fetchFreedaNews({ onlyActive: true, retries: 2 });
+
+    // Download external media and rewrite URLs to local uploads
+    await downloadExternalImages(items);
     const contentDir = path.resolve(process.cwd(), "content");
     await fs.mkdir(contentDir, { recursive: true });
     await fs.writeFile(

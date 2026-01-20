@@ -5,9 +5,21 @@ import Footer from "../../components/Footer.astro";
 import PageHero from "../../components/PageHero.astro";
 import ContentSection from "../../components/ContentSection.astro";
 import { fetchFreedaNews } from "../../utils/freeda-api-client.js";
+import { Image } from 'astro:assets';
 import fs from 'fs';
 import fsp from 'fs/promises';
 import path from 'path';
+
+// Glob import für alle freedaimg_* Dateien (von pages/news/ zu assets/)
+const freedaImages = import.meta.glob('../../assets/freedaimg_*', { eager: true });
+
+// Helper um Asset-Import zu finden
+function getAssetImport(url) {
+  if (!url || !url.startsWith('~/assets/freedaimg_')) return null;
+  const filename = url.replace('~/assets/', '');
+  const importKey = `../../assets/${filename}`;
+  return freedaImages[importKey]?.default || null;
+}
 
 const title = "News & Aktuelles";
 const description = "Aktuelle Nachrichten und Neuigkeiten vom Golfclub Homburg Websweiler Hof";
@@ -103,12 +115,29 @@ const regularNews = newsData.filter(item => !item.isHighlighted);
             <article class="bg-white rounded-lg shadow-lg overflow-hidden">
               <div class="lg:flex">
                 <div class="lg:w-1/2">
-                  <img 
-                    src={article.media.url} 
-                    alt={article.media.name}
-                    class="w-full h-64 lg:h-full object-cover"
-                    loading="lazy"
-                  />
+                  {(() => {
+                    const assetImport = getAssetImport(article.media.url);
+                    return assetImport ? (
+                      <Image 
+                        src={assetImport}
+                        alt={article.media.name}
+                        class="w-full h-64 lg:h-full object-cover"
+                        format="webp"
+                        widths={[600, 800, 1200]}
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        quality={80}
+                        inferSize={true}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <img 
+                        src={article.media.url}
+                        alt={article.media.name}
+                        class="w-full h-64 lg:h-full object-cover"
+                        loading="lazy"
+                      />
+                    );
+                  })()}
                 </div>
                 <div class="lg:w-1/2 p-8">
                   <div class="flex items-center mb-4">
@@ -151,12 +180,29 @@ const regularNews = newsData.filter(item => !item.isHighlighted);
         {regularNews.map((article) => (
           <article class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform hover:scale-105">
             <div class="relative">
-              <img 
-                src={article.media.url} 
-                alt={article.media.name}
-                class="w-full h-48 object-cover"
-                loading="lazy"
-              />
+              {(() => {
+                const assetImport = getAssetImport(article.media.url);
+                return assetImport ? (
+                  <Image 
+                    src={assetImport}
+                    alt={article.media.name}
+                    class="w-full h-48 object-cover"
+                    format="webp"
+                    widths={[400, 600, 800]}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    quality={80}
+                    inferSize={true}
+                    loading="lazy"
+                  />
+                ) : (
+                  <img 
+                    src={article.media.url}
+                    alt={article.media.name}
+                    class="w-full h-48 object-cover"
+                    loading="lazy"
+                  />
+                );
+              })()}
               <div class="absolute top-4 left-4">
                 <time class="bg-white bg-opacity-90 text-gray-700 text-sm px-2 py-1 rounded font-medium">
                   {new Date(article.created).toLocaleDateString('de-DE')}

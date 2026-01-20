@@ -1,0 +1,46 @@
+---
+const { media } = Astro.props;
+import { Image } from 'astro:assets';
+
+// Glob import für alle freedaimg_* Dateien
+const freedaImages = import.meta.glob('../assets/freedaimg_*', { eager: true });
+
+// Helper um Asset-Import zu finden
+function getAssetImport(url) {
+  if (!url || !url.startsWith('~/assets/freedaimg_')) return null;
+  const filename = url.replace('~/assets/', '');
+  const importKey = `../assets/${filename}`;
+  return freedaImages[importKey]?.default || null;
+}
+---
+
+{media?.url ? (
+  <div>
+    {media.url.startsWith('http') ? (
+      <img src={media.url} alt={media.name || ''} class="w-full rounded mb-8 object-cover" loading="lazy" />
+    ) : media.url.startsWith('~/assets/freedaimg_') ? (
+      // Freeda images as optimized assets
+      (() => {
+        const assetImport = getAssetImport(media.url);
+        return assetImport ? (
+          media.width && media.height ? (
+            <Image src={assetImport} alt={media.name || ''} class="w-full rounded mb-8 object-cover" loading="lazy" width={media.width} height={media.height} format="webp" widths={[400, 800, 1200, 1600]} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px" quality={80} />
+          ) : (
+            <Image src={assetImport} alt={media.name || ''} class="w-full rounded mb-8 object-cover" loading="lazy" inferSize={true} format="webp" widths={[400, 800, 1200, 1600]} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px" quality={80} />
+          )
+        ) : (
+          <img src={media.url} alt={media.name || ''} class="w-full rounded mb-8 object-cover" loading="lazy" />
+        );
+      })()
+    ) : media.url.startsWith('/uploads/freeda/') ? (
+      // Fallback für alte /uploads/freeda/ Pfade
+      media.width && media.height ? (
+        <Image src={media.url} alt={media.name || ''} class="w-full rounded mb-8 object-cover" loading="lazy" width={media.width} height={media.height} />
+      ) : (
+        <Image src={media.url} alt={media.name || ''} class="w-full rounded mb-8 object-cover" loading="lazy" inferSize={true} />
+      )
+    ) : (
+      <img src={media.url} alt={media.name || ''} class="w-full rounded mb-8 object-cover" loading="lazy" />
+    )}
+  </div>
+) : null}
