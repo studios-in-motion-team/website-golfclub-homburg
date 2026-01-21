@@ -11,6 +11,17 @@ import PromotionalOffers from "../components/PromotionalOffers.astro";
 ---
 
 <BaseLayout title="Golfclub Homburg Websweiler Hof">
+  <script slot="head" is:inline>
+    var d = document,
+      g = d.createElement("script"),
+      s = d.getElementsByTagName("script")[0];
+    g.type = "text/javascript";
+    g.async = true;
+    g.defer = true;
+    g.src = "https://angebote.mitfit.de/embed.js";
+    g.onload = function () {};
+    s.parentNode.insertBefore(g, s);
+  </script>
   <Header slot="header" />
   <Hero />
   <ServiceDesk />

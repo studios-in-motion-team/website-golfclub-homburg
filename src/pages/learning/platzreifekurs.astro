@@ -1,0 +1,356 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+
+const highlights = [
+    {
+        title: "12 Stunden Golfunterricht",
+        description:
+            "Professionelle Anleitung durch unsere erfahrenen Golf-Pros in Kleingruppen.",
+        icon: "clock",
+    },
+    {
+        title: "Ausrüstung inklusive",
+        description:
+            "Golfschläger und Übungsbälle werden Ihnen während des Kurses kostenlos zur Verfügung gestellt.",
+        icon: "award",
+    },
+    {
+        title: "Platzreife-Zertifikat",
+        description:
+            "Vorbereitung und Abnahme der Prüfung zur offiziellen DGV-Platzreife.",
+        icon: "check-badge",
+    },
+];
+
+const features = [
+    {
+        title: "Unbegrenztes Üben",
+        description:
+            "Kostenlose Nutzung aller Outdoor-Übungseinrichtungen während des Kurszeitraums.",
+    },
+    {
+        title: "Spielerlebnis",
+        description:
+            "Erste Runden auf unserem Kurzplatz sind bereits nach kurzer Zeit inklusive.",
+    },
+    {
+        title: "Professionelle Begleitung",
+        description:
+            "Erlernen von Technik, Regelkunde und Verhaltensregeln auf dem Platz.",
+    },
+];
+---
+
+<BaseLayout title="Platzreifekurs - Golfclub Homburg Websweiler Hof">
+    <script slot="head" is:inline>
+        var d = document,
+            g = d.createElement("script"),
+            s = d.getElementsByTagName("script")[0];
+        g.type = "text/javascript";
+        g.async = true;
+        g.defer = true;
+        g.src = "https://angebote.mitfit.de/embed.js";
+        g.onload = function () {};
+        s.parentNode.insertBefore(g, s);
+    </script>
+    <Header slot="header" />
+
+    <div class="pt-14">
+        <PageHero
+            title="Golf - Lernkurs für Einsteiger"
+            subtitle="Ihr einfacher Start in die Golfwelt - bis zur offiziellen Platzreife."
+            backgroundImage="/images/header02.webp"
+        />
+
+        <div class="container mx-auto px-4 py-16 max-w-5xl">
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20"
+            >
+                <div>
+                    <span
+                        class="text-golf-gold font-bold uppercase tracking-widest text-sm mb-2 block"
+                        >Der Kurs</span
+                    >
+                    <h2
+                        class="font-serif text-4xl font-bold text-golf-green mb-6"
+                    >
+                        Platzreife leicht gemacht
+                    </h2>
+                    <div class="prose text-gray-700 text-lg mb-8">
+                        <p>
+                            Sie möchten richtig in den Golfsport einsteigen und
+                            die Plätze dieser Welt bespielen? Dann ist unser
+                            Golf-Lernkurs genau das Richtige für Sie.
+                        </p>
+                        <p>
+                            Der Kurs zielt darauf ab, tiefer in die Materie des
+                            Golfsports einzutauchen und bereitet Sie
+                            professionell auf die Prüfung zur offiziellen
+                            Platzreife vor. Wir begleiten Sie von den ersten
+                            Schwüngen bis zur Platzreife-Urkunde.
+                        </p>
+                    </div>
+                    <div
+                        class="bg-golf-light p-6 rounded-sm border-l-4 border-golf-gold italic"
+                    >
+                        "Keine Angst vor teurer Ausstattung – wir stellen Ihnen
+                        alles Nötige zur Verfügung!"
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 gap-6">
+                    {
+                        highlights.map((item) => (
+                            <div class="bg-white p-6 shadow-md border border-gray-100 flex items-start space-x-4">
+                                <div class="bg-golf-green/10 p-3 rounded-full text-golf-green">
+                                    {item.icon === "clock" && (
+                                        <svg
+                                            class="w-6 h-6"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                            />
+                                        </svg>
+                                    )}
+                                    {item.icon === "award" && (
+                                        <svg
+                                            class="w-6 h-6"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                                            />
+                                        </svg>
+                                    )}
+                                    {item.icon === "check-badge" && (
+                                        <svg
+                                            class="w-6 h-6"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                            />
+                                        </svg>
+                                    )}
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 uppercase tracking-wider text-sm mb-1">
+                                        {item.title}
+                                    </h4>
+                                    <p class="text-sm text-gray-600">
+                                        {item.description}
+                                    </p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+
+            <div
+                class="bg-golf-green text-white p-12 md:p-16 mb-20 rounded-sm shadow-xl"
+            >
+                <h3
+                    class="font-serif text-3xl font-bold mb-10 text-center uppercase tracking-widest"
+                >
+                    Die Kurs-Highlights
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    {
+                        features.map((f) => (
+                            <div class="space-y-4">
+                                <div class="h-px bg-golf-gold w-12" />
+                                <h4 class="text-xl font-bold">{f.title}</h4>
+                                <p class="text-gray-300 leading-relaxed font-light">
+                                    {f.description}
+                                </p>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+
+            <!-- Mitfit Widget Section -->
+            <div
+                class="w-full bg-gray-50 py-16 border-y border-gray-100 min-h-[600px]"
+            >
+                <div class="container mx-auto px-4 max-w-6xl">
+                    <div class="text-center mb-10">
+                        <h3
+                            class="font-serif text-3xl font-bold text-golf-green mb-4"
+                        >
+                            Kurstermine & Buchung
+                        </h3>
+                        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                            Wählen Sie Ihren passenden Termin und starten Sie
+                            Ihr Golf-Abenteuer am Websweiler Hof.
+                        </p>
+                    </div>
+                    <div
+                        id="mitfitpage"
+                        uuid="e8d7f8fd-4fa0-4f70-be32-576e62f650ee"
+                        adsrc="homepage"
+                        embedded2025="1"
+                    >
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 py-20 max-w-6xl">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                    <!-- Pro-Trainer -->
+                    <div class="group">
+                        <div
+                            class="relative overflow-hidden mb-8 shadow-lg aspect-[4/3]"
+                        >
+                            <img
+                                src="/images/platzreife/trainer.jpg"
+                                alt="Pro-Trainer"
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div
+                                class="absolute inset-0 bg-golf-green/10 group-hover:bg-transparent transition-colors duration-500"
+                            >
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div
+                                class="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto text-golf-green shadow-sm border border-gray-100"
+                            >
+                                <svg
+                                    class="w-6 h-6"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="1.5"
+                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <h5
+                                class="font-bold text-golf-green uppercase tracking-[0.2em] text-sm"
+                            >
+                                Pro-Trainer
+                            </h5>
+                            <p class="text-gray-500 text-sm italic font-light">
+                                Persönliche Betreuung
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Gastro -->
+                    <div class="group">
+                        <div
+                            class="relative overflow-hidden mb-8 shadow-lg aspect-[4/3]"
+                        >
+                            <img
+                                src="/images/platzreife/gastro.jpg"
+                                alt="Top Gastronomie"
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div
+                                class="absolute inset-0 bg-golf-green/10 group-hover:bg-transparent transition-colors duration-500"
+                            >
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div
+                                class="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto text-golf-green shadow-sm border border-gray-100"
+                            >
+                                <svg
+                                    class="w-6 h-6"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="1.5"
+                                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <h5
+                                class="font-bold text-golf-green uppercase tracking-[0.2em] text-sm"
+                            >
+                                Top Gastronomie
+                            </h5>
+                            <p class="text-gray-500 text-sm italic font-light">
+                                Genuss nach dem Kurs
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Ambiente -->
+                    <div class="group">
+                        <div
+                            class="relative overflow-hidden mb-8 shadow-lg aspect-[4/3]"
+                        >
+                            <img
+                                src="/images/platzreife/ambiente.jpg"
+                                alt="Schönes Ambiente"
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div
+                                class="absolute inset-0 bg-golf-green/10 group-hover:bg-transparent transition-colors duration-500"
+                            >
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div
+                                class="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto text-golf-green shadow-sm border border-gray-100"
+                            >
+                                <svg
+                                    class="w-6 h-6"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="1.5"
+                                        d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                                    ></path>
+                                </svg>
+                            </div>
+                            <h5
+                                class="font-bold text-golf-green uppercase tracking-[0.2em] text-sm"
+                            >
+                                Schönes Ambiente
+                            </h5>
+                            <p class="text-gray-500 text-sm italic font-light">
+                                Mitten in der Natur
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <Footer slot="footer" />
+    </div>
+</BaseLayout>

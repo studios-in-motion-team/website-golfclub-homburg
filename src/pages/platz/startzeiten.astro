@@ -1,23 +1,34 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import PageHero from '../../components/PageHero.astro';
-import SubNavigation from '../../components/SubNavigation.astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+import SubNavigation from "../../components/SubNavigation.astro";
 
 const platzNavItems = [
-  { label: 'E-Scoring', href: '/platz/e-scoring' },
-  { label: 'Startzeiten buchen', href: '/platz/startzeiten' },
-  { label: 'Platzübersicht', href: '/platz' },
-  { label: 'Persönliche Scorekarte', href: '/platz/scorekarte' },
-  { label: 'Spielbahnen', href: '/platz/spielbahnen' },
-  { label: 'Übungsbereich', href: '/platz/uebungsbereich' },
+  { label: "E-Scoring", href: "/platz/e-scoring" },
+  { label: "Startzeiten buchen", href: "/platz/startzeiten" },
+  { label: "Platzübersicht", href: "/platz" },
+  { label: "Persönliche Scorekarte", href: "/platz/scorekarte" },
+  { label: "Spielbahnen", href: "/platz/spielbahnen" },
+  { label: "Übungsbereich", href: "/platz/uebungsbereich" },
 ];
 ---
 
 <BaseLayout title="Startzeiten buchen - Golfclub Homburg Websweiler Hof">
+  <script slot="head" is:inline>
+    var d = document,
+      g = d.createElement("script"),
+      s = d.getElementsByTagName("script")[0];
+    g.type = "text/javascript";
+    g.async = true;
+    g.defer = true;
+    g.src = "https://angebote.mitfit.de/embed.js";
+    g.onload = function () {};
+    s.parentNode.insertBefore(g, s);
+  </script>
   <Header slot="header" />
-  
+
   <div class="pt-14">
     <PageHero
       title="Startzeiten buchen"
@@ -31,16 +42,50 @@ const platzNavItems = [
       parentTitle="GOLFPLATZ"
     />
 
-    <div class="container mx-auto px-4 py-16 max-w-4xl text-center">
-      <h2 class="font-serif text-3xl font-bold text-golf-green mb-6">Startzeitenreservierung</h2>
-      <p class="text-lg text-gray-700 mb-8">
-        Buchen Sie Ihre Startzeit bequem online über unsere PC CADDIE App oder kontaktieren Sie unser Sekretariat.
-      </p>
-      
-      <div class="bg-white p-8 shadow-xl rounded-lg border-t-4 border-golf-gold mb-8">
+    <div class="container mx-auto px-4 pt-16 pb-8 max-w-4xl text-center">
+      <h2 class="font-serif text-3xl font-bold text-golf-green mb-6">
+        Startzeitenreservierung
+      </h2>
+      <div class="text-lg text-gray-700 mb-8 space-y-6">
+        <p>Buchen Sie Ihr Greenfee ganz bequem online:</p>
+      </div>
+    </div>
+
+    <!-- Mitfit Embed Widget - Full Width Wrapper -->
+    <div class="w-full mb-16">
+      <div
+        id="mitfitpage"
+        uuid="12cf3259-5c87-432a-9b79-128217e38df8"
+        adsrc="homepage"
+        embedded2025="1"
+      >
+      </div>
+    </div>
+
+    <div class="container mx-auto px-4 pb-16 max-w-4xl text-center">
+      <div class="mb-16">
+        <p
+          class="text-base border-l-4 border-golf-gold pl-6 py-2 italic bg-gray-50 text-left"
+        >
+          <span class="font-bold text-golf-gold">ÜBRIGENS:</span> Wir bieten zahlreiche
+          Kooperationen und Partnervereinbarungen an und unterbreiten Ihnen gerne
+          ein individuelles Angebot.
+        </p>
+        <p class="mt-4">
+          Schreiben Sie einfach eine E-Mail an: <a
+            href="mailto:info@golfsaar.de"
+            class="text-golf-green font-bold">info (at) golfsaar.de</a
+          >
+        </p>
+      </div>
+
+      <div
+        class="bg-white p-8 shadow-xl rounded-lg border-t-4 border-golf-gold mb-8"
+      >
         <h3 class="font-bold text-xl text-golf-green mb-4">Online-Buchung</h3>
         <p class="text-gray-600 mb-6">
-          Über die PC CADDIE App können Sie als Mitglied bequem Ihre Startzeiten buchen.
+          Über die PC CADDIE App können Sie als Mitglied bequem Ihre Startzeiten
+          buchen.
         </p>
         <a
           href="#"
