@@ -17,7 +17,7 @@ const services: ServiceItem[] = [
     icon: "trophy",
     title: "Greenfee",
     desc: "Preise & Gäste",
-    link: "/mitgliedschaft",
+    link: "/platz/startzeiten",
   },
   {
     icon: "users",
@@ -52,7 +52,9 @@ const iconPaths: Record<string, string> = {
 };
 ---
 
-<div class="relative z-20 -mt-16 md:-mt-24 container mx-auto px-4 mb-20">
+<div
+  class="relative z-20 -mt-16 md:-mt-24 container mx-auto px-4 mb-20"
+>
   <div class="bg-white shadow-2xl rounded-sm overflow-hidden">
     <div
       class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-gray-100"
@@ -61,7 +63,9 @@ const iconPaths: Record<string, string> = {
         services.map((service) => (
           <a
             href={service.link}
-            target={service.link.startsWith("http") ? "_blank" : undefined}
+            target={
+              service.link.startsWith("http") ? "_blank" : undefined
+            }
             rel={
               service.link.startsWith("http")
                 ? "noopener noreferrer"
