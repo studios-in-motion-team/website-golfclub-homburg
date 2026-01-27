@@ -1,0 +1,196 @@
+---
+// Dynamic route für News-Artikel
+export async function getStaticPaths() {
+  import fs from 'fs';
+  import path from 'path';
+  import { fetchFreedaNews } from '../../utils/freeda-api-client.js';
+  
+  // Laden der News-Daten (Cache-First-Ansatz)
+  let news = [];
+  const cachePath = path.resolve(process.cwd(), 'content/freeda-news.json');
+  
+  try {
+    if (fs.existsSync(cachePath)) {
+      const raw = fs.readFileSync(cachePath, 'utf-8');
+      news = JSON.parse(raw);
+    } else {
+      // Fallback: Live API-Call falls Cache nicht verfügbar
+      news = await fetchFreedaNews({ onlyActive: true });
+    }
+  } catch (error) {
+    console.warn('Fehler beim Laden der News-Daten:', error.message);
+    news = [];
+  }
+
+  // Generiere Pfade für alle aktiven News
+  return news.map((article) => ({
+    params: { slug: article.slug },
+    props: { article }
+  }));
+}
+
+const { article } = Astro.props;
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import PageHero from "../../components/PageHero.astro";
+import ArticleHeroImage from "../../components/ArticleHeroImage.astro";
+import ArticleContent from "../../components/ArticleContent.astro";
+
+// SEO Meta-Tags aus News-Daten generieren
+const title = article.name || 'News-Artikel';
+const description = article.textShort || 'News vom Golfclub Homburg';
+const canonicalUrl = `${import.meta.env.SITE}/news/${article.slug}`;
+
+// Formatierte Daten für Anzeige
+const formattedDate = new Date(article.created).toLocaleDateString('de-DE', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+// Structured Data für SEO (JSON-LD)
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": article.name,
+  "description": article.textShort,
+  "datePublished": article.created,
+  "dateModified": article.updated || article.created,
+  "author": {
+    "@type": "Organization",
+    "name": "Golfclub Homburg"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Golfclub Homburg",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${import.meta.env.SITE}/images/logo.png`
+    }
+  },
+  ...(article.media?.url && {
+    "image": {
+      "@type": "ImageObject",
+      "url": article.media.url.startsWith('http') ? article.media.url : `${import.meta.env.SITE}${article.media.url}`,
+      "width": article.media.width || 1200,
+      "height": article.media.height || 630
+    }
+  })
+};
+---
+
+<BaseLayout 
+  title={title}
+  description={description}
+  ogTitle={title}
+  ogDescription={description}
+  ogImage={article.media?.url}
+  canonicalUrl={canonicalUrl}
+>
+  <!-- Structured Data für SEO -->
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+  
+  <Header />
+  
+  <main>
+    <PageHero
+      title={article.name}
+      subtitle={`Veröffentlicht am ${formattedDate}`}
+      backgroundImage="/images/sample/golf-course-hero.jpg"
+    />
+    
+    <div class="bg-gray-50 py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex mb-8" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+              <a href="/" class="text-gray-700 hover:text-emerald-700 inline-flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                </svg>
+                Home
+              </a>
+            </li>
+            <li>
+              <div class="flex items-center">
+                <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <a href="/news" class="ml-1 text-gray-700 hover:text-emerald-700 md:ml-2">News</a>
+              </div>
+            </li>
+            <li aria-current="page">
+              <div class="flex items-center">
+                <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="ml-1 text-gray-500 md:ml-2 truncate">{article.name}</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+
+        <!-- Hero Image -->
+        <ArticleHeroImage media={article.media} />
+
+        <!-- Article Metadata -->
+        <div class="flex items-center justify-between mb-8 pb-4 border-b">
+          <div class="flex items-center text-gray-600">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <time datetime={article.created}>{formattedDate}</time>
+          </div>
+          
+          {article.isHighlighted ? (
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800">
+              <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+              </svg>
+              Featured
+            </span>
+          ) : null}
+        </div>
+
+        <!-- Article Content -->
+        <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <ArticleContent article={{
+            textHtml: article.text?.html,
+            textMd: article.text?.md,
+            textShort: article.textShort
+          }} />
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="flex justify-between items-center mt-12">
+          <a href="/news" class="inline-flex items-center text-emerald-700 hover:text-emerald-900 font-medium transition-colors">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Zurück zu News
+          </a>
+          
+          <!-- Social Media Sharing -->
+          <div class="flex items-center space-x-4">
+            <span class="text-gray-600 text-sm">Teilen:</span>
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=${canonicalUrl}`} target="_blank" rel="noopener" class="text-blue-600 hover:text-blue-800">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href={`https://twitter.com/intent/tweet?url=${canonicalUrl}&text=${encodeURIComponent(title)}`} target="_blank" rel="noopener" class="text-blue-400 hover:text-blue-600">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</BaseLayout>
