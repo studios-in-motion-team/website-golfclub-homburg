@@ -1,0 +1,73 @@
+import { defineConfig } from 'astro/config';
+import tailwind from '@astrojs/tailwind';
+
+// https://astro.build/config
+export default defineConfig({
+  integrations: [tailwind()],
+  
+  // Basis-Einstellungen
+  site: 'https://www.golfclub-homburg.de',
+  base: '/',
+  
+  // Build-Konfiguration
+  build: {
+    // Assets-Inlining für bessere Performance
+    inlineStylesheets: 'auto',
+  },
+  
+  // Image-Optimierung für Freeda-Bilder
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/sharp",
+    },
+    
+    // Keine Remote-Patterns nötig, da Bilder als lokale Assets gespeichert werden
+    domains: [],
+    remotePatterns: [],
+  },
+  
+  // Vite-Konfiguration für Asset-Handling
+  vite: {
+    // Optimierte Asset-Behandlung
+    assetsInclude: ['**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.webp'],
+    
+    build: {
+      // Assets-Behandlung
+      assetsDir: '_astro',
+      rollupOptions: {
+        output: {
+          // Asset-Naming für bessere Caching
+          assetFileNames: (assetInfo) => {
+            const info = assetInfo.name.split('.');
+            const extType = info[info.length - 1];
+            
+            // Spezielle Behandlung für Freeda-Bilder
+            if (assetInfo.name?.includes('freedaimg_')) {
+              return `images/[name]-[hash][extname]`;
+            }
+            
+            // Standard-Asset-Naming
+            if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+              return `images/[name]-[hash][extname]`;
+            }
+            return `assets/[name]-[hash][extname]`;
+          },
+        },
+      },
+    },
+  },
+  
+  // Server-Konfiguration für Development
+  server: {
+    port: 4321,
+    host: true, // Erlaubt externe Verbindungen
+  },
+  
+  // Output-Konfiguration
+  output: 'static',
+  
+  // Experimental features (optional)
+  experimental: {
+    assets: true,
+  },
+};
