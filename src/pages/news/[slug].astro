@@ -4,144 +4,234 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import PageHero from "../../components/PageHero.astro";
 import ArticleContent from "../../components/ArticleContent.astro";
-import ArticleHeroImage from "../../components/ArticleHeroImage.astro";
+import NewsCard from "../../components/NewsCard.astro";
 import { fetchFreedaNews } from "../../utils/freeda-api-client.js";
-import { Image } from 'astro:assets';
-import * as fs from 'fs';
-import { promises as fsp } from 'fs';
-import * as path from 'path';
-import sizeOf from 'image-size';
+import {
+  getAssetImport,
+  ensureLocalImageSizes,
+} from "../../utils/image-utils.js";
+import { Image } from "astro:assets";
+import * as fs from "fs";
+import { promises as fsp } from "fs";
+import * as path from "path";
 
-function ensureLocalImageSizes(items: any[]) {
-  if (!Array.isArray(items)) return;
-  for (const it of items) {
-    try {
-      const m = it?.media?.url;
-      if (m && typeof m === 'string' && m.startsWith('~/assets/freedaimg_') && (!it.media?.width || !it.media?.height)) {
-        const local = path.resolve(process.cwd(), 'src/assets', m.replace(/^~\/assets\//, ''));
-        if (fs.existsSync(local)) {
-          try {
-            const d = sizeOf(local);
-            if (d?.width && d?.height) {
-              if (!it.media) it.media = {};
-              it.media.width = d.width;
-              it.media.height = d.height;
-            }
-          } catch (e) {
-            // ignore
-          }
-        }
-      }
-    } catch (e) {
-      // ignore per-item failures
-    }
-  }
-}
-
-// NOTE: Dev-live bypass handled in index.astro; getStaticPaths uses cache when available.
+// Glob import for assets
+const freedaImages = import.meta.glob("../../assets/freedaimg_*", {
+  eager: true,
+});
 
 export async function getStaticPaths() {
-  // Always include local placeholders to ensure routes exist in dev
-  const placeholderNews = [
-    {
-      uuid: 'sample-1',
-      name: 'Saisonstart 2026 - Neue Platzregeln',
-      created: '2026-01-15',
-      slug: 'saisonstart-2026-neue-platzregeln',
-      isHighlighted: 1,
-      textShort: 'Ab März gelten neue Platzregeln und die Saison 2026 kann beginnen.',
-      media: { url: '/images/bahnen/bahn1.jpg', name: 'Golfplatz im Frühling' }
-    },
-    {
-      uuid: 'sample-2',
-      name: 'Erfolgreiche Winterarbeiten abgeschlossen',
-      created: '2026-01-10',
-      slug: 'winterarbeiten-abgeschlossen',
-      isHighlighted: 0,
-      textShort: 'Die umfangreichen Pflegemaßnahmen während der Wintermonate sind abgeschlossen.',
-      media: { url: '/images/bahnen/bahn2.jpg', name: 'Platzpflege' }
-    }
-  ];
-
-  // Prüfe, ob ein prebuild Cache existiert und verwende diesen bevorzugt
-  const cachePath = path.resolve(process.cwd(), 'content/freeda-news.json');
+  const cachePath = path.resolve(
+    process.cwd(),
+    "content/freeda-news.json",
+  );
+  let newsItems: any[] = [];
   try {
     if (fs.existsSync(cachePath)) {
-      const raw = await fsp.readFile(cachePath, 'utf-8');
-      const items = JSON.parse(raw);
-      // Make sure dimensions are present for local uploads
-      try { ensureLocalImageSizes(items); } catch (e) {}
-      const combined = [...placeholderNews, ...items];
-      const bySlug = new Map();
-      combined.forEach((it) => bySlug.set(it.slug, it));
-      return Array.from(bySlug.values()).map((item) => ({ params: { slug: item.slug }, props: { article: item } }));
+      const raw = await fsp.readFile(cachePath, "utf-8");
+      newsItems = JSON.parse(raw);
+    } else {
+      newsItems = await fetchFreedaNews({ onlyActive: true });
     }
-
-    const items = await fetchFreedaNews({ onlyActive: true });
-    try { ensureLocalImageSizes(items); } catch (e) {}
-    const combined = [...placeholderNews, ...items];
-    const bySlug = new Map();
-    combined.forEach((it) => bySlug.set(it.slug, it));
-    return Array.from(bySlug.values()).map((item) => ({ params: { slug: item.slug }, props: { article: item } }));
+    ensureLocalImageSizes(newsItems);
   } catch (err) {
-    console.error('getStaticPaths: Failed to read cache or fetch live, returning placeholders only', (err as Error)?.message || err);
-    return placeholderNews.map((item) => ({ params: { slug: item.slug }, props: { article: item } }));
+    console.error("getStaticPaths failed", err);
   }
+
+  return newsItems.map((item: any) => ({
+    params: { slug: item.slug },
+    props: {
+      article: item,
+      allNews: newsItems
+        .filter((n: any) => n.uuid !== item.uuid)
+        .slice(0, 3),
+    },
+  }));
 }
 
-
-// Falls die Seite während der Laufzeit ohne props gerendert wird,
-// versuchen wir anhand des Slugs das passende Item zu laden.
+const { article, allNews = [] } = Astro.props as {
+  article: any;
+  allNews: any[];
+};
 const slug = Astro.params.slug;
 
-let article = Astro.props?.article ?? null;
+// Hero Image resolution
+const heroImageAsset = getAssetImport(
+  article?.media?.url,
+  freedaImages,
+);
 
-if (!article) {
-  const cachePath = path.resolve(process.cwd(), 'content/freeda-news.json');
-  try {
-    if (fs.existsSync(cachePath)) {
-      const raw = await fsp.readFile(cachePath, 'utf-8');
-      const items = JSON.parse(raw);
-      try { ensureLocalImageSizes(items); } catch (e) {}
-      article = items.find((i: any) => i.slug === slug) || null;
-    } else {
-      const items = await fetchFreedaNews({ onlyActive: true });
-      try { ensureLocalImageSizes(items); } catch (e) {}
-      article = items.find((i: any) => i.slug === slug) || null;
-    }
-  } catch (err) {
-    console.error('Article fetch fallback failed', (err as Error)?.message || err);
-    article = null;
-  }
-}
+// Formatted Date
+const formattedDate = article?.created
+  ? new Date(article.created).toLocaleDateString("de-DE", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    })
+  : "";
 
+// Determine background image (avoid leaking ~/assets/ to client)
+const bgImage =
+  heroImageAsset ||
+  (article?.media?.url?.startsWith("http")
+    ? article.media.url
+    : null) ||
+  "/images/sample/golf-tournament.jpg";
 ---
 
-{article ? (
-  <BaseLayout title={article.name} description={article.textShort}>
-    <Header slot="header" />
+{
+  article ? (
+    <BaseLayout title={article.name} description={article.textShort}>
+      <Header slot="header" />
 
-    <PageHero
-      title={article.name}
-      subtitle={new Date(article.created).toLocaleDateString('de-DE')}
-      backgroundImage={article.media?.url || '/images/sample/golf-tournament.jpg'}
-    />
+      <PageHero
+        title={article.name}
+        subtitle={formattedDate}
+        backgroundImage={bgImage}
+      />
 
-    <main class="container mx-auto px-4 py-12 max-w-3xl">
-      <ArticleHeroImage media={article.media} />
-      <ArticleContent article={article} />
-    </main>
+      <main class="relative z-20 -mt-20 pb-24">
+        <div class="container mx-auto px-4 max-w-6xl">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            {/* Main Article Content */}
+            <div class="lg:col-span-8">
+              <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl shadow-golf-green/5">
+                <ArticleContent article={article} />
 
-    <Footer slot="footer" />
-  </BaseLayout>
-) : (
-  <BaseLayout title="Artikel nicht gefunden">
-    <Header slot="header" />
-    <main class="container mx-auto px-4 py-24 text-center">
-      <h1 class="text-3xl font-serif mb-4">Artikel nicht gefunden</h1>
-      <p class="text-gray-600 mb-6">Der von Ihnen aufgerufene Artikel wurde nicht gefunden oder ist nicht (mehr) verfügbar.</p>
-      <a href="/news" class="inline-block bg-emerald-700 text-white px-6 py-3 rounded">Zurück zur Übersicht</a>
-    </main>
-    <Footer slot="footer" />
-  </BaseLayout>
-)}
+                {/* Back Link */}
+                <div class="mt-12 pt-8 border-t border-gray-100">
+                  <a
+                    href="/news"
+                    class="inline-flex items-center text-golf-gold hover:text-golf-gold-light font-medium transition-colors group"
+                  >
+                    <svg
+                      class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                    Zurück zur Übersicht
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Sidebar / More News */}
+            <aside class="lg:col-span-4 space-y-8">
+              <div class="sticky top-24">
+                <h2 class="font-serif text-2xl text-golf-green mb-6 border-b border-golf-gold/20 pb-4">
+                  Weitere aktuelle News
+                </h2>
+                <div class="grid grid-cols-1 gap-6">
+                  {allNews.map((item: any) => {
+                    const itemImg = getAssetImport(
+                      item.media?.url,
+                      freedaImages,
+                    );
+                    const fallbackImg =
+                      (item.media?.url?.startsWith("http")
+                        ? item.media.url
+                        : null) ||
+                      "/images/sample/golf-tournament.jpg";
+                    return (
+                      <a
+                        href={`/news/${item.slug}`}
+                        class="group block bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-all border border-gray-50"
+                      >
+                        <div class="flex gap-4">
+                          {item.media?.url && (
+                            <div class="w-20 h-20 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
+                              {itemImg ? (
+                                <Image
+                                  src={itemImg}
+                                  alt=""
+                                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                  width={160}
+                                  height={160}
+                                />
+                              ) : (
+                                <img
+                                  src={fallbackImg}
+                                  alt=""
+                                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                />
+                              )}
+                            </div>
+                          )}
+                          <div>
+                            <time class="text-xs text-golf-gold font-medium uppercase tracking-wider mb-1 block">
+                              {new Date(
+                                item.created,
+                              ).toLocaleDateString("de-DE")}
+                            </time>
+                            <h3 class="font-serif text-lg leading-snug group-hover:text-golf-green/80 transition-colors">
+                              {item.name}
+                            </h3>
+                          </div>
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+
+                <div class="mt-8 bg-golf-green p-8 rounded-2xl text-white overflow-hidden relative group">
+                  <div class="relative z-10">
+                    <h3 class="font-serif text-xl mb-4">
+                      Interesse am Golfclub?
+                    </h3>
+                    <p class="text-sm text-white/80 mb-6">
+                      Werden Sie Mitglied und genießen Sie exklusive
+                      Vorteile auf dem Websweiler Hof.
+                    </p>
+                    <a
+                      href="/mitgliedschaft"
+                      class="inline-block bg-golf-gold hover:bg-golf-gold-light text-white px-6 py-2 rounded font-medium transition-colors text-sm"
+                    >
+                      Mitglied werden
+                    </a>
+                  </div>
+                  <div class="absolute -right-4 -bottom-4 opacity-10 transform rotate-12 group-hover:scale-110 transition-transform duration-700">
+                    <img
+                      src="/favicon.svg"
+                      alt=""
+                      class="w-32 h-32"
+                    />
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </main>
+
+      <Footer slot="footer" />
+    </BaseLayout>
+  ) : (
+    <BaseLayout title="Artikel nicht gefunden">
+      <Header slot="header" />
+      <main class="container mx-auto px-4 py-24 text-center">
+        <h1 class="text-3xl font-serif mb-4">
+          Artikel nicht gefunden
+        </h1>
+        <p class="text-gray-600 mb-6">
+          Der von Ihnen aufgerufene Artikel wurde nicht gefunden oder
+          ist nicht (mehr) verfügbar.
+        </p>
+        <a
+          href="/news"
+          class="inline-block bg-emerald-700 text-white px-6 py-3 rounded"
+        >
+          Zurück zur Übersicht
+        </a>
+      </main>
+      <Footer slot="footer" />
+    </BaseLayout>
+  )
+}

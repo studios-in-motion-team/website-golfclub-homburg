@@ -3,19 +3,19 @@ interface Props {
   article: any;
 }
 
-import { marked } from 'marked';
-import sanitizeHtml from 'sanitize-html';
-import { getSanitizeOptions } from '../config/sanitize-config.js';
+import { marked } from "marked";
+import sanitizeHtml from "sanitize-html";
+import { getSanitizeOptions } from "../config/sanitize-config.js";
 
 const { article } = Astro.props as Props;
 
-// Determine whether to sanitize HTML. Default: true, can be disabled with
-// FREEDA_SANITIZE_HTML=false (server env).
-const sanitizeEnabled = process.env.FREEDA_SANITIZE_HTML !== 'false' && process.env.VITE_FREEDA_SANITIZE_HTML !== 'false';
+const sanitizeEnabled =
+  process.env.FREEDA_SANITIZE_HTML !== "false" &&
+  process.env.VITE_FREEDA_SANITIZE_HTML !== "false";
 
 function maybeSanitize(html) {
   if (!sanitizeEnabled) return html;
-  const opts = getSanitizeOptions('default', sanitizeHtml);
+  const opts = getSanitizeOptions("default", sanitizeHtml);
   return sanitizeHtml(html, opts);
 }
 
@@ -23,21 +23,52 @@ let renderedHtml = null;
 if (article?.textHtml) {
   renderedHtml = maybeSanitize(article.textHtml);
 } else if (article?.textMd) {
-  const raw = marked.parse(article.textMd || '');
+  const raw = marked.parse(article.textMd || "");
   renderedHtml = maybeSanitize(raw);
 }
-
 ---
 
-<article class="prose lg:prose-xl mx-auto">
-  {renderedHtml ? (
-    <div set:html={renderedHtml} />
-  ) : (
-    <p>{article?.textShort}</p>
-  )}
+<article class="prose prose-golf max-w-none">
+  {
+    renderedHtml ? (
+      <div set:html={renderedHtml} />
+    ) : (
+      <p class="text-xl leading-relaxed text-gray-600 italic border-l-4 border-golf-gold pl-6 py-2">
+        {article?.textShort}
+      </p>
+    )
+  }
 </article>
 
 <style is:global>
-  /* Ensure images inside article are responsive */
-  .prose img { max-width: 100%; height: auto; }
+  /* Premium Typography for Golf Club News */
+  .prose-golf {
+    @apply text-gray-800 leading-relaxed;
+  }
+  .prose-golf h2 {
+    @apply font-serif text-3xl text-golf-green mt-12 mb-6;
+  }
+  .prose-golf h3 {
+    @apply font-serif text-2xl text-golf-green mt-8 mb-4;
+  }
+  .prose-golf p {
+    @apply mb-6 text-lg;
+  }
+  .prose-golf blockquote {
+    @apply border-l-4 border-golf-gold bg-golf-light p-6 italic rounded-r-lg shadow-sm font-serif text-xl;
+  }
+  .prose-golf img {
+    @apply rounded-2xl shadow-lg my-12 mx-auto;
+    max-width: 100%;
+    height: auto;
+  }
+  .prose-golf strong {
+    @apply text-golf-green font-bold;
+  }
+  .prose-golf ul {
+    @apply list-disc pl-6 mb-6 space-y-2;
+  }
+  .prose-golf li::marker {
+    @apply text-golf-gold;
+  }
 </style>

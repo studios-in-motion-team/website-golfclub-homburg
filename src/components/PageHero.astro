@@ -1,30 +1,82 @@
 ---
+import { Image } from "astro:assets";
+
 interface Props {
   title: string;
   subtitle?: string;
-  variant?: 'main' | 'sub';
-  backgroundImage?: string;
+  variant?: "main" | "sub";
+  backgroundImage?: string | any;
 }
 
-const { title, subtitle, variant = 'main', backgroundImage } = Astro.props;
-const paddingClass = variant === 'sub' ? 'py-12' : 'py-20';
+const {
+  title,
+  subtitle,
+  variant = "main",
+  backgroundImage,
+} = Astro.props;
+const paddingClass =
+  variant === "sub" ? "py-16 md:py-24" : "py-24 md:py-36";
+
+const isAsset =
+  typeof backgroundImage !== "string" && backgroundImage?.src;
 ---
 
-<div
+<section
   class={`relative bg-golf-green text-white ${paddingClass} px-4 overflow-hidden`}
-  style={backgroundImage ? `background-image: url(${backgroundImage}); background-size: cover; background-position: center;` : ''}
 >
-  {/* Optional Overlay for better text readability when background image is present */}
-  {backgroundImage && (
-    <div class="absolute inset-0 bg-golf-green/60 z-0"></div>
-  )}
+  {
+    backgroundImage && (
+      <div class="absolute inset-0 z-0">
+        {isAsset ? (
+          <Image
+            src={backgroundImage}
+            alt=""
+            class="w-full h-full object-cover opacity-60"
+            quality={80}
+          />
+        ) : (
+          <div
+            class="w-full h-full bg-cover bg-center opacity-60"
+            style={`background-image: url(${backgroundImage});`}
+          />
+        )}
+        <div class="absolute inset-0 bg-gradient-to-b from-golf-green/40 via-golf-green/80 to-golf-green z-1" />
+      </div>
+    )
+  }
 
   <div class="container mx-auto max-w-4xl text-center relative z-10">
-    <h1 class="font-serif text-3xl md:text-5xl font-bold mb-4 md:mb-6">{title}</h1>
-    {subtitle && (
-      <p class="text-base md:text-xl font-light tracking-wide opacity-90">
-        {subtitle}
-      </p>
-    )}
+    {
+      subtitle && (
+        <span class="inline-block text-golf-gold-light font-medium tracking-widest uppercase text-sm mb-4 animate-fade-in">
+          {subtitle}
+        </span>
+      )
+    }
+    <h1
+      class="font-serif text-4xl md:text-6xl font-bold mb-6 leading-tight drop-shadow-sm"
+    >
+      {title}
+    </h1>
+    <div
+      class="w-24 h-1 bg-golf-gold mx-auto rounded-full opacity-80 mt-8"
+    >
+    </div>
   </div>
-</div>
+</section>
+
+<style>
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
